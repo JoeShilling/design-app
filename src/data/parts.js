@@ -1,0 +1,62 @@
+export const partData = {
+    background:'black',
+    width:1000,
+    height:1200,
+    
+    parts:[
+        {name:"Red Rectangle",
+        type:"rectangle",
+        fill:"red",
+        properties:{
+            fill:'red',
+            lockScalingY:true,
+        },
+        options:[
+            'height',
+            'width',
+            'xPos',
+            'yPos',
+            'angle'
+        ]
+        },
+        {name:"Green Circle",
+            type:"circle",
+            properties:{
+                fill:'green',
+                left:500
+            },
+            options:[
+                'height',
+                'width',
+                'fill'
+            ]
+        },
+        {name:"Blue Circle",
+            type:"circle",
+            properties:{
+                fill:'blue',
+                lockScalingX:true,
+                lockScalingY:false,
+                lockRotation:true,
+                fakeProperty:false
+            },
+            options:[
+                'height',
+                'width',
+                'fill',
+                'yPos',
+                'xPos'
+            ]
+        },
+        {name:"Tape",
+            type:"image",
+            file:"tape.png",
+            options:[
+                'height',
+                'width',
+                'yPos',
+                'xPos'
+            ]
+        }
+    ]
+}
