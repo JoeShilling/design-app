@@ -1,6 +1,7 @@
 import { React } from 'react'
 import { fabric } from 'fabric'
 import {useEffect, useState} from 'react';
+import FontFaceObserver from 'fontfaceobserver';
 
 export const Menu = (props) => {
     const editor = props.editor;
@@ -54,6 +55,17 @@ const PartButton = (props) => {
                     editor.canvas.add(addListeners(i, props.part));
                 });
                 break;
+
+            case 'text':
+                const newFont = new FontFaceObserver(props.part.properties.fontFamily);
+                newFont.load().then(() => {
+                    const object = new fabric.IText('Hello World', {
+                        left: 100,
+                        top: 100,
+                    });
+                    editor.canvas.add(addListeners(object, props.part));
+                })
+                
         }
         
         if (object != null) {

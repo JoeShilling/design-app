@@ -2,7 +2,10 @@ export const partData = {
     background:'black',
     width:1000,
     height:1200,
-    
+    guides:{
+        x:[33,66],
+        y:[],
+    },
     parts:[
         {name:"Red Rectangle",
         type:"rectangle",
@@ -56,6 +59,21 @@ export const partData = {
                 'width',
                 'yPos',
                 'xPos'
+            ]
+        },
+        {name:"Textbox",
+            type:"text",
+            properties: {
+                fontFamily:'Sora',
+                fill:'white',
+                fontWeight:'bold'
+            },
+            options:[
+                'height',
+                'width',
+                'yPos',
+                'xPos',
+                'charSpacing'
             ]
         }
     ]

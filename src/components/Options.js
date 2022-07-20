@@ -99,8 +99,12 @@ export const Options = (props) => {
                             <input id="angle" property="angle" type="text" placeholder={objects[0].get('angle')} onChange={changeGeneric}/>    
                             </div>)
                             break;
-                        default:
-                            return;
+                        default: // catch all options menu
+                            return(<div key={value}>
+                                <label htmlFor={value}>{value} </label>
+                                <input id={value} property={value} type="text" placeholder={objects[0].get({value})} onChange={changeGeneric}/>    
+                                </div>)
+                                break;
     
                     }
                 })}
