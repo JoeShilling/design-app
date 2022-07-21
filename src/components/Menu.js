@@ -3,6 +3,8 @@ import { fabric } from 'fabric'
 import {useEffect, useState} from 'react';
 import FontFaceObserver from 'fontfaceobserver';
 
+//the menu of available parts to be added to the canvas
+
 export const Menu = (props) => {
     const editor = props.editor;
     const parts = props.partData;

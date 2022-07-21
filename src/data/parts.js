@@ -1,17 +1,18 @@
 export const partData = {
     background:'black',
-    width:1000,
-    height:1200,
+    width:900,
+    height:1600,
     guides:{
-        x:[33,66],
-        y:[],
+        x:[200],
+        xp:[2,33,66,98],
+        yp:[2,33,66,98],
     },
     parts:[
-        {name:"Red Rectangle",
+        {name:"White Strip",
         type:"rectangle",
-        fill:"red",
         properties:{
-            fill:'red',
+            fill:'white',
+            height:20,
             lockScalingY:true,
         },
         options:[
@@ -32,23 +33,6 @@ export const partData = {
                 'height',
                 'width',
                 'fill'
-            ]
-        },
-        {name:"Blue Circle",
-            type:"circle",
-            properties:{
-                fill:'blue',
-                lockScalingX:true,
-                lockScalingY:false,
-                lockRotation:true,
-                fakeProperty:false
-            },
-            options:[
-                'height',
-                'width',
-                'fill',
-                'yPos',
-                'xPos'
             ]
         },
         {name:"Tape",
@@ -73,7 +57,8 @@ export const partData = {
                 'width',
                 'yPos',
                 'xPos',
-                'charSpacing'
+                'charSpacing',
+                'lineHeight'
             ]
         }
     ]

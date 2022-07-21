@@ -1,6 +1,8 @@
 import { React } from 'react';
 import { fabric } from 'fabric';
 
+//shows available options for the selected part
+//TODO to make this so it doesnt explode if you select something that hasnt been set up yet
 export const Options = (props) => {
     const editor = props.editor;
     const objects = props.objects
@@ -53,7 +55,7 @@ export const Options = (props) => {
     }
 
     
-    if (objects.length == 1) { //if only one object is selected
+    if (objects.length == 1 && objects[0].type != 'guide') { //if only one object is selected
         let i =0; //define it out of the loop so we can access it later
         for (i; i < props.parts.length; i++) { //lets us find the options for the selected part type
             if (props.parts[i].name == objects[0].partName) {
