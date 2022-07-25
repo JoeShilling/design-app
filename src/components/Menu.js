@@ -26,6 +26,7 @@ const PartButton = (props) => {
     const addPart = () => {
         switch(props.part.type) {
             //based on the type of the part do different stuff
+            //decided to hardcode these in. remember to add try/catch for custom parts that may not always be loaded in
             case 'rectangle':
                 var object = new fabric.Rect({
                     left: 100,
@@ -37,7 +38,6 @@ const PartButton = (props) => {
                 });
                 break;
                 
-                
             case 'circle':
                 var object = new fabric.Circle({
                     left: 100,
@@ -46,7 +46,6 @@ const PartButton = (props) => {
                     
                     strokeUniform: true
                 });
-                
                 break;
                 
             case 'image':
@@ -67,7 +66,27 @@ const PartButton = (props) => {
                     });
                     editor.canvas.add(addListeners(object, props.part));
                 })
-                
+            case 'segmentRect':
+                try {
+                    var object = new fabric.SegmentRect({
+                        left:100,
+                        top:100,
+                        width:400,
+                        height:400,
+                        stroke:"white",
+                        fill:'black',
+                        strokeWidth:5,
+                        borderScaleFactor:4,
+                        segments:4,
+                        strokeUniform:true, //TODO stop the interior lines from scaling
+                    });
+                }
+                catch (e) {
+                    console.log("SegmentRect part probably not loaded");
+                    throw(e);
+                }
+
+                break;
         }
         
         if (object != null) {

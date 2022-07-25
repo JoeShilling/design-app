@@ -109,26 +109,11 @@ export const Toolbar = (props) => {
         setGuidesOn(!guidesOn);
     }
 
-    const testObject = () =>{
-        let object = new fabric.SegmentRect({
-            left:100,
-            top:100,
-            width:100,
-            height:100,
-            borderColor:"red",
-            borderScaleFactor:4,
-            selectable:false,
-        })
-        editor.canvas.add(object);
-        editor.canvas.renderAll();
-    }
-
     return (
         <div>
             <button onClick={()=>saveSVG()}>Save as SVG</button>
             <button onClick={()=>savePNG()}>Save as PNG</button>
             <button onClick={()=>toggleGuides()}>Toggle Guides</button>
-            <button onClick={()=>testObject()}>add custom object</button>
         </div>
     );
 }

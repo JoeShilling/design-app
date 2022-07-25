@@ -19,28 +19,24 @@ fabric.SegmentRect = fabric.util.createClass(fabric.Rect, {
     },
 
     _render: function (ctx) {
-
-        
-        //FIX THIS
-
-        //this.callSuper('_render', ctx);
-
+        console.log(this.strokeWidth);
+        console.log(this.scaleX);
+        this.callSuper('_render', ctx);
+        //TODO stop these from scaling up when the shape is scaled
         let h = this.height,
         s = this.width/this.segments,
-        x = this.left,
-        y = this.top;
+        x = -(this.width/2),
+        y = -(this.height/2);
 
         ctx.beginPath();
-        ctx.strokeStyle="red";
-        ctx.moveTo(100,100);
-        ctx.lineTo(100,200);
-        for (let i = 0; i < this.segments-1; i++) {
+        ctx.strokeStyle=this.stroke;
+        ctx.lineWidth=this.strokeWidth/this.scaleX; //we want the width of the segment lines to be constant as the shape scaled
+
+        for (let i = 0; i < this.segments-1; i++) {  
             ctx.moveTo(x + s*(i+1), y);
             ctx.lineTo(x + s*(i+1), y + h);
-            console.log(`[${x + s*(i+1)}, ${y}] [${x + s*(i+1)}, ${y + h}]`);
-            ctx.stroke();
         }
-        
+        ctx.stroke();
 
     }
 

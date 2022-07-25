@@ -23,18 +23,6 @@ export const partData = {
             'angle'
         ]
         },
-        {name:"Green Circle",
-            type:"circle",
-            properties:{
-                fill:'green',
-                left:500
-            },
-            options:[
-                'height',
-                'width',
-                'fill'
-            ]
-        },
         {name:"Tape",
             type:"image",
             file:"tape.png",
@@ -59,6 +47,27 @@ export const partData = {
                 'xPos',
                 'charSpacing',
                 'lineHeight'
+            ]
+        },
+        {name:'Segments',
+            type:"segmentRect",
+            properties:{
+                left:100,
+                top:100,
+                width:400,
+                height:400,
+                stroke:"white",
+                fill:'transparent',
+                strokeWidth:5,
+                segments:6,
+            },
+            options:[
+                'width',
+                'height',
+                'segments',
+                'angle',
+                'xPos',
+                'yPos'
             ]
         }
     ]
