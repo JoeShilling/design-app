@@ -66,6 +66,7 @@ const PartButton = (props) => {
                     });
                     editor.canvas.add(addListeners(object, props.part));
                 })
+                break;
             case 'segmentRect':
                 try {
                     var object = new fabric.SegmentRect({

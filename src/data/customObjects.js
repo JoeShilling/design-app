@@ -19,10 +19,7 @@ fabric.SegmentRect = fabric.util.createClass(fabric.Rect, {
     },
 
     _render: function (ctx) {
-        console.log(this.strokeWidth);
-        console.log(this.scaleX);
         this.callSuper('_render', ctx);
-        //TODO stop these from scaling up when the shape is scaled
         let h = this.height,
         s = this.width/this.segments,
         x = -(this.width/2),

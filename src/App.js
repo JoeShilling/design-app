@@ -1,6 +1,7 @@
 import './App.css';
 import './data/fonts.css';
 import './data/customObjects';
+import { useKeyPress } from './useKeyPress';
 import {useEffect} from 'react';
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import { Menu } from "./components/Menu"
@@ -20,6 +21,16 @@ const App = () =>  {
     useEffect(() => {
 
     });
+
+    //keyboard shortcuts
+    const undo = (event) => {
+        if (event.ctrlKey == true) {
+            console.log('undo function here please');
+        }
+        
+    }
+
+    useKeyPress(['z'], undo);
 
     return(
         <div>

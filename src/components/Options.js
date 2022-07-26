@@ -50,7 +50,7 @@ export const Options = (props) => {
         const prop = e.target.id;
         objects.forEach((i) => {
             i.set(prop,parseFloat(value))
-            i.set('dirty', true);
+            i.set('dirty', true); //tells fabric to rerender the object
         })
         editor.canvas.renderAll();
     }

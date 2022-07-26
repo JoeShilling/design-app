@@ -58,7 +58,7 @@ export const partData = {
                 height:400,
                 stroke:"white",
                 fill:'transparent',
-                strokeWidth:5,
+                strokeWidth:3,
                 segments:6,
             },
             options:[
