@@ -13,7 +13,7 @@ export const Menu = (props) => {
         <div>
             {props.parts.map(value => {
                 return(
-                    <PartButton key={value.name} editor={props.editor} part={value} />
+                    <PartButton key={value.name} editor={props.editor} part={value} sockets={props.sockets}/>
                 );
             })}
         </div>
@@ -22,6 +22,7 @@ export const Menu = (props) => {
 
 const PartButton = (props) => {
     const editor = props.editor;
+    const sockets = props.sockets;
     
     const addPart = () => {
         switch(props.part.type) {
@@ -53,21 +54,22 @@ const PartButton = (props) => {
                 fabric.Image.fromURL(require(`../data/images/${props.part.file}`), (i) => {
                     i.set('left', 100);
                     i.set('top', 100);
-                    editor.canvas.add(addListeners(i, props.part));
+                    editor.canvas.add(addListeners(i, props.part, sockets));
                 });
                 break;
 
             case 'text':
                 const newFont = new FontFaceObserver(props.part.properties.fontFamily);
                 newFont.load().then(() => {
-                    const object = new fabric.IText('Hello World', {
+                    const object = new fabric.Text('Hello World', {
                         left: 100,
                         top: 100,
+                        splitByGrapheme:true,
                     });
-                    editor.canvas.add(addListeners(object, props.part));
+                    editor.canvas.add(addListeners(object, props.part, sockets));
                 })
                 break;
-            case 'segmentRect':
+            case 'segmentRect': //custom part
                 try {
                     var object = new fabric.SegmentRect({
                         left:100,
@@ -79,7 +81,7 @@ const PartButton = (props) => {
                         strokeWidth:5,
                         borderScaleFactor:4,
                         segments:4,
-                        strokeUniform:true, //TODO stop the interior lines from scaling
+                        strokeUniform:true,
                     });
                 }
                 catch (e) {
@@ -91,18 +93,40 @@ const PartButton = (props) => {
         }
         
         if (object != null) {
-
-            editor.canvas.add(addListeners(object, props.part));
+            editor.canvas.add(addListeners(object, props.part, sockets));
         }
     }
     
-    const addListeners = (object, part) => {
+    const findPosition = (target, sockets) => {
+        for (const socket in sockets) { //go through each element in socket
+            if (target == socket) { //
+                return [sockets[socket]['x'], sockets[socket]['y']];
+            } else if (sockets[socket]['x'] == undefined) { //if that socket is just a group, go through each socket in it
+                let i = findPosition(target, sockets[socket]);
+                if (i != undefined) {
+                    return(i);
+                }
+            }
+        }
+    }
+
+    const addListeners = (object, part, sockets) => {
         object.set('partName', part.name); //lets us see what partType the object is
-        
+        object.set('lockMovementX', true); //by default you cant drag around parts
+        object.set('lockMovementY', true);
+        object.setControlsVisibility({bl:false,br:false,mb:false,ml:false,mr:false,mt:false,tl:false,tr:false,mtr:false}); //turn off all the visual controls
         
         //http://fabricjs.com/docs/fabric.Object.html
         for (const property in part.properties) { //sets the properties
-            object.set(property, part.properties[property]);
+            if (property == 'socket') {
+                let pos = findPosition(part.properties[property], sockets);
+                object.set('left', pos[0]);
+                object.set('top', pos[1]);
+                object.set('socket', part.properties[property]);
+            } else {
+                object.set(property, part.properties[property]);
+            }
+            
         }
 
         //when the visual controls are used, reset the values in the input forms

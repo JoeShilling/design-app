@@ -37,11 +37,11 @@ const App = () =>  {
             <h1>Design App testing</h1>
             <Toolbar editor={editor} partData={partData}></Toolbar>
             <div  className={'wrapper'}>
-                <Menu className={'one'} editor={editor} parts={partData.parts}/>
+                <Menu className={'one'} editor={editor} parts={partData.parts} sockets={partData.sockets}/>
 
                 <FabricJSCanvas className={'canvas two'} onReady={onReady}/>
 
-                <Options className={'three'} editor={editor} objects={selectedObjects} parts={partData.parts}/>
+                <Options className={'three'} editor={editor} objects={selectedObjects} parts={partData.parts} sockets={partData.sockets}/>
             </div>
         </div>
     );

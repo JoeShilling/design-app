@@ -1,21 +1,44 @@
 export const partData = {
     background:'black',
     width:900,
-    height:1600,
+    height:1272,
     guides:{
         x:[200],
         xp:[2,33,66,98],
         yp:[2,33,66,98],
     },
+    sockets:{
+        title:{x:34, y:34},
+        text:{
+            heading:{x:64,y:266},
+            textLeft:{x:64,y:309},
+            textRight:{x:463,y:309}
+        },
+        display:{
+            displayA:{x:64,y:441},
+            displayB:{x:321.5,y:441},
+            displayC:{x:579,y:441},
+            displayD:{x:64,y:698.5},
+            displayE:{x:321.5,y:698.5},
+            displayF:{x:579,y:698.5},
+            displayG:{x:64,y:956},
+            displayH:{x:321.5,y:956},
+            displayI:{x:579,y:956},
+        }
+    },
     parts:[
         {name:"White Strip",
         type:"rectangle",
         properties:{
+            socket:'displayI',
             fill:'white',
             height:20,
             lockScalingY:true,
         },
         options:[
+            {'name':'socket',
+                'values':'display'
+            },
             'height',
             'width',
             'xPos',
@@ -23,15 +46,82 @@ export const partData = {
             'angle'
         ]
         },
-        {name:"Tape",
-            type:"image",
-            file:"tape.png",
+        {name:'Segments',
+            type:"segmentRect",
+            properties:{
+                socket:'displayA',
+                width:257,
+                height:257,
+                stroke:"white",
+                fill:'transparent',
+                strokeWidth:3,
+                segments:6,
+            },
             options:[
-                'height',
+                {name:'socket',
+                    values:'display'
+                },
+                {name:'segments',
+                    type:'slider',
+                    min:1,
+                    max:10,
+                },
                 'width',
-                'yPos',
-                'xPos'
+                'height',
+                'segments',
+                'angle',
+                'xPos',
+                'yPos'
             ]
+        },
+        {name:"Paragraph",
+            type:"text",
+            properties: {
+                socket:"textLeft",
+                fontFamily:'Sora',
+                fill:'white',
+                fontWeight:'bold',
+                fontSize:15,
+                targetWidth:364
+            },
+            options:[
+                {name:"socket",
+                    values:"text"
+                },
+                {name:'fontSize',
+                    type:'slider',
+                    min:5,
+                    max:60
+                },
+                {name:"text",
+                    type:"textArea"
+                }
+            ]
+        },
+        {name:"Logo",
+        type:"image",
+        file:"institute.svg",
+        
+        properties:{
+            socket:"title"
+        },
+        options:[
+            'height',
+            'width',
+            'yPos',
+            'xPos'
+        ],
+        },
+        /*
+        {name:"Tape",
+        type:"image",
+        file:"tape.png",
+        options:[
+            'height',
+            'width',
+            'yPos',
+            'xPos'
+        ]
         },
         {name:"Textbox",
             type:"text",
@@ -49,26 +139,7 @@ export const partData = {
                 'lineHeight'
             ]
         },
-        {name:'Segments',
-            type:"segmentRect",
-            properties:{
-                left:100,
-                top:100,
-                width:400,
-                height:400,
-                stroke:"white",
-                fill:'transparent',
-                strokeWidth:3,
-                segments:6,
-            },
-            options:[
-                'width',
-                'height',
-                'segments',
-                'angle',
-                'xPos',
-                'yPos'
-            ]
-        }
+        
+        */
     ]
 }

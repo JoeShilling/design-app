@@ -41,6 +41,6 @@ The primary way parts are added.
     - xp: Specify guide by % across the canvas.
     - yp: Specify guide by % across the canvas.
 - Parts: 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
 
 ## Learn More
