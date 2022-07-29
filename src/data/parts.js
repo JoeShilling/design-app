@@ -78,11 +78,35 @@ export const partData = {
             type:"text",
             properties: {
                 socket:"textLeft",
-                fontFamily:'Sora',
+                fontFamily:'institute',
+                fill:'white',
+                fontWeight:'normal',
+                fontSize:15,
+                width:364,
+            },
+            options:[
+                {name:"socket",
+                    values:"text"
+                },
+                {name:'fontSize',
+                    type:'slider',
+                    min:5,
+                    max:60
+                },
+                {name:"text",
+                    type:"textArea"
+                }
+            ]
+        },
+        {name:"ParagraphBold",
+            type:"text",
+            properties: {
+                socket:"textLeft",
+                fontFamily:'institute',
                 fill:'white',
                 fontWeight:'bold',
                 fontSize:15,
-                targetWidth:364
+                width:771,
             },
             options:[
                 {name:"socket",

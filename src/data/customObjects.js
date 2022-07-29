@@ -18,6 +18,8 @@ fabric.SegmentRect = fabric.util.createClass(fabric.Rect, {
         return this.callSuper('toObject', ['segments'].concat(propertiesToInclude));
     },
 
+    //Write a custom toSVG function
+
     _render: function (ctx) {
         this.callSuper('_render', ctx);
         let h = this.height,
@@ -36,6 +38,7 @@ fabric.SegmentRect = fabric.util.createClass(fabric.Rect, {
         ctx.stroke();
 
     }
+    
 
 
 })

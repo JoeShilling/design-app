@@ -5,9 +5,11 @@ import { fabric } from 'fabric';
 //TODO to make this so it doesnt explode if you select something that hasnt been set up yet
 export const Options = (props) => {
     const editor = props.editor;
-    const objects = props.objects
+    const objects = props.objects;
     const sockets = props.sockets;
     
+    // const[objects, setObjects] = useState(props.objects);
+    console.log('options menu render');
     const deleteObject = () => {
         editor.canvas.remove(editor.canvas.getActiveObject());
     }
@@ -27,7 +29,6 @@ export const Options = (props) => {
         const prop = e.target.id;
         objects.forEach((i) => {
             i.set(prop,value)
-            i.set('width', i.get('targetWidth'));
         })
         editor.canvas.renderAll();
     }
@@ -61,10 +62,11 @@ export const Options = (props) => {
                 break;
             }
         }
+
         return (
             <div>
-                <button onClick={() => deleteObject()}>Delete Part</button>
-    
+               
+               <button onClick={() => deleteObject()}>Delete Part</button>
                 {props.parts[i].options.map(value => {
                     switch(value.name) { //first check for any options that need specific functions, atm that just sockets
                         case 'socket':
@@ -83,6 +85,7 @@ export const Options = (props) => {
                         default:
                             switch (value.type) { //then sort th others by type of options
                                 case 'slider':
+                                    console.log(objects[0].get(value.name));
                                     return(<div key={value.name}>
                                         <label htmlFor={value.name}>{value.name}: </label>
                                         <input id={value.name} type='range' min={value.min} max={value.max} defaultValue={objects[0].get(value.name)} onChange={changeGeneric}/>

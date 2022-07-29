@@ -1,1 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Sora&display=swap');
+
+@font-face {
+    font-family: institute;
+    font-weight: bold;
+    src: url('fonts/Institute-Bold.ttf');
+}
+@font-face {
+    font-family: institute;
+    font-weight: normal;
+    src: url('fonts/Institute-Light.ttf');
+};

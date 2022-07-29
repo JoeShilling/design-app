@@ -61,10 +61,13 @@ const PartButton = (props) => {
             case 'text':
                 const newFont = new FontFaceObserver(props.part.properties.fontFamily);
                 newFont.load().then(() => {
-                    const object = new fabric.Text('Hello World', {
+                    const object = new fabric.Textbox('Hello Worldsgfduawgdyugsufygdkagfuyagaduagwdeagfyusgfuysgfuesgfnusegfusyfgsfgugcgu', {
                         left: 100,
                         top: 100,
-                        splitByGrapheme:true,
+                        textAlign:'left',
+                        width: 100,
+                        height: 100,
+                        splitByGrapheme: true,
                     });
                     editor.canvas.add(addListeners(object, props.part, sockets));
                 })
