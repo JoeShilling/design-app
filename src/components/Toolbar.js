@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import {fabric} from 'fabric';
 import { saveAs } from 'file-saver';
+import { useFabricJSEditor } from 'fabricjs-react';
 
 //toolbar at top of the app, put generic utility features here
 
@@ -27,7 +28,7 @@ export const Toolbar = (props) => {
 
         let content = editor.canvas.toDataURL({
             format: 'png',
-            multiplier: 1
+            multiplier: 11
         });
         saveAs(content, 'canvas.png');
 

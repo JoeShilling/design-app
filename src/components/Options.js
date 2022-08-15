@@ -1,4 +1,5 @@
 import { React , useState} from 'react';
+import { changeLines } from '../data/segmentedRect';
 import { fabric } from 'fabric';
 
 //shows available options for the selected part
@@ -63,47 +64,65 @@ export const Options = (props) => {
             }
         }
 
-        return (
-            <div>
-               
-               <button onClick={() => deleteObject()}>Delete Part</button>
-                {props.parts[i].options.map(value => {
-                    switch(value.name) { //first check for any options that need specific functions, atm that just sockets
-                        case 'socket':
-                            return(<div key="socket">
-                                <label htmlFor="socket">Socket: </label>
-                                <select name="socket" id="socket" onChange={changeSocket}  defaultValue={objects[0].socket}>
-                                    {Object.keys(findPosition(value.values, sockets)).map(socket => {
-                                        return(
-                                            <option key={socket} value={socket}>{socket}</option>
-                                        )
-                                    })}
-                                </select>
-                                </div>
-                            )
-                            break;
-                        default:
-                            switch (value.type) { //then sort th others by type of options
-                                case 'slider':
-                                    console.log(objects[0].get(value.name));
-                                    return(<div key={value.name}>
-                                        <label htmlFor={value.name}>{value.name}: </label>
-                                        <input id={value.name} type='range' min={value.min} max={value.max} defaultValue={objects[0].get(value.name)} onChange={changeGeneric}/>
-                                    </div>)
-                                    break;
-                                case 'textArea':
-                                    return(<div key={value.name}>
-                                        <label htmlFor={value.name}>{value.name}: </label>
-                                        <textarea id={value.name} name={value.name} rows="4" cols="50" onChange={changeText} defaultValue={objects[0].get('text')}></textarea>
-                                    </div>)
-                            }
-                            break;
-                    }
+        if (i != props.parts.length) { //if this is false it means the selected object isnt in the parts list.
+            
+            return (
+                <div>
+                   
+                   <button onClick={() => deleteObject()}>Delete Part</button>
+                    {props.parts[i].options.map(value => {
+                        switch(value.name) { //first check for any options that need specific functions, atm that just sockets
+                            case 'socket':
+                                return(<div key="socket">
+                                    <label htmlFor="socket">Socket: </label>
+                                    <select name="socket" id="socket" onChange={changeSocket}  defaultValue={objects[0].socket}>
+                                        {Object.keys(findPosition(value.values, sockets)).map(socket => {
+                                            return(
+                                                <option key={socket} value={socket}>{socket}</option>
+                                            )
+                                        })}
+                                    </select>
+                                    </div>
+                                )
+                                break;
+                            
+                            case 'lines':
+                                return(<div key='lines'>
+                                    <label htmlFor="lines">Lines: </label>
+                                    <input id={value.name} type='range' min={value.min} max={value.max} defaultValue={objects[0].get(value.name)} onChange={(value) => changeLines(objects[0], value, editor)}/>
+                                    </div>
+                                )
+                                break;
 
-                })}
+                            default:
+                                switch (value.type) { //then sort th others by type of options
+                                    case 'slider':
+                                        console.log(objects[0].get(value.name));
+                                        return(<div key={value.name}>
+                                            <label htmlFor={value.name}>{value.name}: </label>
+                                            <input id={value.name} type='range' min={value.min} max={value.max} defaultValue={objects[0].get(value.name)} onChange={changeGeneric}/>
+                                        </div>)
+                                        break;
+                                    case 'textArea':
+                                        return(<div key={value.name}>
+                                            <label htmlFor={value.name}>{value.name}: </label>
+                                            <textarea id={value.name} name={value.name} rows="4" cols="50" onChange={changeText} defaultValue={objects[0].get('text')}></textarea>
+                                        </div>)
+                                }
+                                break;
+                        }
+    
+                    })}
+    
+                </div>
+            )
+        } else {
+            console.log('unrecognised object');
+            console.log(objects[0]);
+            return(<div/>);
+        }
 
-            </div>
-        )
+
     } else {
         return(<div/>);
    }

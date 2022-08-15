@@ -136,6 +136,20 @@ export const partData = {
             'xPos'
         ],
         },
+
+        {name:"segmentGroup",
+            type:"segmentGroup",
+            properties: {},
+            options:[
+                {name:'socket',
+                    values:"display"
+                },
+                {name:"lines",
+                    min:1,
+                    max:10
+                }
+            ],
+        }
         /*
         {name:"Tape",
         type:"image",

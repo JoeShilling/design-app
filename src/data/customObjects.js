@@ -42,3 +42,57 @@ fabric.SegmentRect = fabric.util.createClass(fabric.Rect, {
 
 
 })
+
+fabric.GradiantRects = fabric.util.createClass(fabric.Object, {
+    type:"gradiantRect",
+    
+    initialize: function (options) {
+        options = options || {};
+        this.callSuper('initialize', options);
+        
+        //this.set
+
+        
+    },
+
+    _render: function (ctx) {
+        this.callSuper('_render', ctx);
+        
+    }
+            
+})
+
+class Groupsegments { //takes a dictionary of inputs as the input
+    constructor (params) {
+        //parameters are height, width, left, top, stroke, fill, strokeWidth, lines, editor
+        Object.assign(this, params);
+    }
+
+
+    output() {
+        let rect1 = new fabric.Rect({
+            top:this.left,
+            left:this.top,
+            width:this.width,
+            height:this.height,
+            stroke:this.stroke,
+            fill:this.fill,
+            strokeWidth:this.strokeWidth
+        });
+        let line1 = new fabric.Line([this.left+25, this.top,this.left+25, this.top+this.height], {
+            stroke:this.stroke,
+            strokeWidth:this.strokeWidth,
+            selectable: false,
+            evented: false
+        });
+
+        let group1 = new fabric.Group([rect1, line1], {
+            top:100,
+            left:100,
+            type:"segmentGroup"
+        })
+        this.editor.canvas.add(group1);
+    }
+}
+
+

@@ -2,6 +2,7 @@ import { React } from 'react'
 import { fabric } from 'fabric'
 import {useEffect, useState} from 'react';
 import FontFaceObserver from 'fontfaceobserver';
+import {createSegmentRect} from '../data/segmentedRect'
 
 //the menu of available parts to be added to the canvas
 
@@ -61,7 +62,7 @@ const PartButton = (props) => {
             case 'text':
                 const newFont = new FontFaceObserver(props.part.properties.fontFamily);
                 newFont.load().then(() => {
-                    const object = new fabric.Textbox('Hello Worldsgfduawgdyugsufygdkagfuyagaduagwdeagfyusgfuysgfuesgfnusegfusyfgsfgugcgu', {
+                    const object = new fabric.Textbox('Hello World', {
                         left: 100,
                         top: 100,
                         textAlign:'left',
@@ -92,6 +93,35 @@ const PartButton = (props) => {
                     throw(e);
                 }
 
+                break;
+            case 'segmentGroup':
+                // let rect1 = new fabric.Rect({
+                //     top:100,
+                //     left:100,
+                //     width:257,
+                //     height:257,
+                //     stroke:"white",
+                //     fill:"transparent",
+                //     strokeWidth:3
+                // });
+                // let line1 = new fabric.Line([125, 100,125, 357], {
+                //     stroke:"white",
+                //     strokeWidth:3,
+                //     selectable: false,
+                //     evented: false
+                // });
+                // let line2 = new fabric.Line([225, 100,225, 357], {
+                //     stroke:"white",
+                //     strokeWidth:3,
+                //     selectable: false,
+                //     evented: false
+                // });
+                // var object = new fabric.Group([rect1, line1, line2], {
+                //     top:100,
+                //     left:100,
+                //     partName:"segmentGroup"
+                // })
+                var object = createSegmentRect();
                 break;
         }
         
@@ -132,6 +162,7 @@ const PartButton = (props) => {
             
         }
 
+        /* viusal controls no longer used so we don't need this?
         //when the visual controls are used, reset the values in the input forms
         object.on({'scaling': function(e) { 
             if (part.options.includes('height')) {
@@ -161,7 +192,7 @@ const PartButton = (props) => {
                 document.getElementById('angle').placeholder = (this.get('angle')).toFixed(2);
             }
         }});
-        
+        */
         return(object);
     }
     
