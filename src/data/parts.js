@@ -139,45 +139,31 @@ export const partData = {
 
         {name:"segmentGroup",
             type:"segmentGroup",
-            properties: {},
+            properties: {
+                lines:6,
+                socket:"displayB",
+                // strokeWidth:5,
+            },
             options:[
                 {name:'socket',
                     values:"display"
                 },
-                {name:"lines",
+                {name:'lines',
+                    type:'slider',
                     min:1,
-                    max:10
-                }
+                    max:30,
+                },
+                {name:'lineStrokeWidth',
+                    type:'slider',
+                    min:1,
+                    max:30,
+                },
+                // {name:'width',
+                //     type:'slider',
+                //     min:50,
+                //     max:600,
+                // },
             ],
-        }
-        /*
-        {name:"Tape",
-        type:"image",
-        file:"tape.png",
-        options:[
-            'height',
-            'width',
-            'yPos',
-            'xPos'
-        ]
         },
-        {name:"Textbox",
-            type:"text",
-            properties: {
-                fontFamily:'Sora',
-                fill:'white',
-                fontWeight:'bold'
-            },
-            options:[
-                'height',
-                'width',
-                'yPos',
-                'xPos',
-                'charSpacing',
-                'lineHeight'
-            ]
-        },
-        
-        */
     ]
 }

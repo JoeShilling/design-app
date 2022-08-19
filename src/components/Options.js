@@ -10,7 +10,6 @@ export const Options = (props) => {
     const sockets = props.sockets;
     
     // const[objects, setObjects] = useState(props.objects);
-    console.log('options menu render');
     const deleteObject = () => {
         editor.canvas.remove(editor.canvas.getActiveObject());
     }
@@ -18,6 +17,7 @@ export const Options = (props) => {
     const changeGeneric = (e) => {
         const value = e.target.value;
         const prop = e.target.id;
+        console.log(objects[0]);
         objects.forEach((i) => {
             i.set(prop,value)
             i.set('dirty', true); //tells fabric to rerender the object
@@ -65,7 +65,7 @@ export const Options = (props) => {
         }
 
         if (i != props.parts.length) { //if this is false it means the selected object isnt in the parts list.
-            
+            console.log(objects[0]);
             return (
                 <div>
                    
@@ -85,19 +85,10 @@ export const Options = (props) => {
                                     </div>
                                 )
                                 break;
-                            
-                            case 'lines':
-                                return(<div key='lines'>
-                                    <label htmlFor="lines">Lines: </label>
-                                    <input id={value.name} type='range' min={value.min} max={value.max} defaultValue={objects[0].get(value.name)} onChange={(value) => changeLines(objects[0], value, editor)}/>
-                                    </div>
-                                )
-                                break;
 
                             default:
                                 switch (value.type) { //then sort th others by type of options
                                     case 'slider':
-                                        console.log(objects[0].get(value.name));
                                         return(<div key={value.name}>
                                             <label htmlFor={value.name}>{value.name}: </label>
                                             <input id={value.name} type='range' min={value.min} max={value.max} defaultValue={objects[0].get(value.name)} onChange={changeGeneric}/>

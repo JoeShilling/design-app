@@ -95,33 +95,8 @@ const PartButton = (props) => {
 
                 break;
             case 'segmentGroup':
-                // let rect1 = new fabric.Rect({
-                //     top:100,
-                //     left:100,
-                //     width:257,
-                //     height:257,
-                //     stroke:"white",
-                //     fill:"transparent",
-                //     strokeWidth:3
-                // });
-                // let line1 = new fabric.Line([125, 100,125, 357], {
-                //     stroke:"white",
-                //     strokeWidth:3,
-                //     selectable: false,
-                //     evented: false
-                // });
-                // let line2 = new fabric.Line([225, 100,225, 357], {
-                //     stroke:"white",
-                //     strokeWidth:3,
-                //     selectable: false,
-                //     evented: false
-                // });
-                // var object = new fabric.Group([rect1, line1, line2], {
-                //     top:100,
-                //     left:100,
-                //     partName:"segmentGroup"
-                // })
-                var object = createSegmentRect();
+                var object = createSegmentRect(editor);
+                // object.lines = props.part.properties.lines;
                 break;
         }
         

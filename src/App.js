@@ -1,6 +1,7 @@
 import './App.css';
 import './data/fonts.css';
 import './data/customObjects';
+import './data/segmentedRect';
 import { useKeyPress } from './useKeyPress';
 import {useEffect} from 'react';
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";

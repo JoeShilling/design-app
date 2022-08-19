@@ -1,3 +1,4 @@
+import '../data/segmentedRect';
 import { React, useState, useEffect } from 'react';
 import {fabric} from 'fabric';
 import { saveAs } from 'file-saver';
@@ -28,7 +29,7 @@ export const Toolbar = (props) => {
 
         let content = editor.canvas.toDataURL({
             format: 'png',
-            multiplier: 11
+            multiplier: 3
         });
         saveAs(content, 'canvas.png');
 
