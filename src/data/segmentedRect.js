@@ -1,8 +1,11 @@
 import {fabric} from 'fabric';
 //okay so groups didnt work because they would rearrange the objects which was not at all what we wanted
+//the current solution is to essentially staple methods onto a invisible Rectangle object 
+//for each variable that affects the inner lines, we use a setter function to ensure that after the value is changed, they are visually updated.
+//definitely feel like there's got to be a better method of doing this but for now it works
 
 export function createSegmentRect(editorInput) {
-    let object = new fabric.Rect({
+    let object = new fabric.Rect({ //these are essentially the default values
         topValue:100,
         leftValue:100,
         width:257, //257
@@ -20,10 +23,9 @@ export function createSegmentRect(editorInput) {
 
     
 
-    Object.defineProperty(object, 'lineStrokeWidth', {
+    Object.defineProperty(object, 'lineStrokeWidth', { //wrapper setter that ensures the lines are updated after the change
         set (width) {
-            console.log('linestrokewidth setter');
-            this.set('lineStrokeWidthValue',  parseInt(width));
+            this.set('lineStrokeWidthValue',  parseInt(width)); 
             this.set('lines', this.get('lines'));
         },
         get () {
@@ -32,7 +34,7 @@ export function createSegmentRect(editorInput) {
     });
 
 
-    Object.defineProperty(object, 'left', {
+    Object.defineProperty(object, 'left', { //wrapper setter that ensures the lines are updated after the change
         set (value) {
             this.set('leftValue', value);
             this.set('lines', this.get('lines'));
@@ -42,7 +44,7 @@ export function createSegmentRect(editorInput) {
         }
     });
 
-    Object.defineProperty(object, 'top', {
+    Object.defineProperty(object, 'top', { //wrapper setter that ensures the lines are updated after the change
         set (value) {
             this.set('topValue', value);
             this.set('lines', this.get('lines'));
@@ -52,7 +54,7 @@ export function createSegmentRect(editorInput) {
         }
     });
 
-    Object.defineProperty(object, 'lines', {
+    Object.defineProperty(object, 'lines', { //essentially a render function for the lines?
         set (number) {
             number++;
 
