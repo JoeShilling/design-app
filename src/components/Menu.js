@@ -96,7 +96,6 @@ const PartButton = (props) => {
                 break;
             case 'segmentGroup':
                 var object = createSegmentRect(editor);
-                // object.lines = props.part.properties.lines;
                 break;
         }
         

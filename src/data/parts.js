@@ -142,7 +142,7 @@ export const partData = {
             properties: {
                 lines:6,
                 socket:"displayB",
-                // strokeWidth:5,
+                lineStrokeWidth:5,
             },
             options:[
                 {name:'socket',
