@@ -11,13 +11,21 @@ export const Options = (props) => {
     
     // const[objects, setObjects] = useState(props.objects);
     const deleteObject = () => {
-        editor.canvas.remove(editor.canvas.getActiveObject());
+        let ob = editor.canvas.getActiveObject();
+        if (ob.objects) {
+            for (let i = ob.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
+                if (ob.objects[i].type == 'line') {
+                    editor.canvas.remove(ob.objects[i]); //remove the old lines from both canvas and group
+                    ob.objects.splice(i,1);
+                }
+            }
+        }
+        editor.canvas.remove(ob);
     }
 
     const changeGeneric = (e) => {
         const value = e.target.value;
         const prop = e.target.id;
-        console.log(objects[0]);
         objects.forEach((i) => {
             i.set(prop,value)
             i.set('dirty', true); //tells fabric to rerender the object
@@ -34,15 +42,18 @@ export const Options = (props) => {
         editor.canvas.renderAll();
     }
 
-    const changeSocket = (e) => {
-        const target = e.target.value;
+    const changeSocketWrapper = (e) => { //turns the event object into the bit we want
+        changeSocket(e.target.value);
+    }
+    
+    const changeSocket = (target) => {
         let socket = findPosition(target, sockets);
         objects[0].set('top', socket.y);
         objects[0].set('left', socket.x);
         objects[0].set('socket', target);
         editor.canvas.renderAll();
     }
-    
+
     const findPosition = (target, sockets) => { //returns a given socket object
         for (const socket in sockets) { //go through each element in socket
             if (target == socket) { //
@@ -56,6 +67,30 @@ export const Options = (props) => {
         }
     }
 
+    const clearGuides = () => {
+        let toDelete = [];
+        editor?.canvas.getObjects().forEach(element => {
+            if (element.type == 'guide2') {
+                toDelete.push(element);
+            }
+        });
+        toDelete.forEach(element => {
+            editor?.canvas.remove(element);
+        })
+    };
+
+    const socketParser = (sockets) => {
+        let coords = [];
+        Object.keys(sockets).forEach(socket => {
+            if ((Object.keys(sockets[socket])[0] == 'x') && (Object.keys(sockets[socket])[1] == 'y')) {
+                coords.push({name:socket, x:sockets[socket]['x'], y:sockets[socket]['y']});
+            } else {
+                coords = coords.concat(socketParser(sockets[socket]));
+            }
+        });
+        return coords;
+    }
+
     if (objects.length == 1 ) { //if only one object is selected
         let i =0; //define it out of the loop so we can access it later
         for (i; i < props.parts.length; i++) { //lets us find the options for the selected part type
@@ -64,8 +99,9 @@ export const Options = (props) => {
             }
         }
 
+
+
         if (i != props.parts.length) { //if this is false it means the selected object isnt in the parts list.
-            console.log(objects[0]);
             return (
                 <div>
                    
@@ -73,10 +109,37 @@ export const Options = (props) => {
                     {props.parts[i].options.map(value => {
                         switch(value.name) { //first check for any options that need specific functions, atm that just sockets
                             case 'socket':
+                                clearGuides();
                                 return(<div key="socket">
                                     <label htmlFor="socket">Socket: </label>
-                                    <select name="socket" id="socket" onChange={changeSocket}  defaultValue={objects[0].socket}>
+                                    <select name="socket" id="socket" onChange={changeSocketWrapper}  defaultValue={objects[0].socket}>
                                         {Object.keys(findPosition(value.values, sockets)).map(socket => {
+                                            let s = findPosition(socket, sockets);
+                                            let c = new fabric.Circle({
+                                                left:s.x,
+                                                top:s.y,
+                                                radius:3,
+                                                fill:'red',
+                                                selectable:false,
+                                                excludeFromExport:true,
+                                                hoverCursor:'default',
+                                                originX:'center',
+                                                originY:'center',
+                                                type:'guide2',
+                                            });
+                                            editor.canvas.add(c);
+                                            let t = new fabric.Text(socket, {
+                                                left:s.x + 5,
+                                                top:s.y - 15,
+                                                fill:'red',
+                                                fontSize: 11,
+                                                eventable:false,
+                                                selectable:false,
+                                                excludeFromExport:true,
+                                                hoverCursor:'default',
+                                                type:'guide2',
+                                            });
+                                            editor.canvas.add(t);
                                             return(
                                                 <option key={socket} value={socket}>{socket}</option>
                                             )
@@ -115,6 +178,7 @@ export const Options = (props) => {
 
 
     } else {
+        clearGuides();
         return(<div/>);
    }
 }

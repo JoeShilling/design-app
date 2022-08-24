@@ -22,7 +22,7 @@ export const Toolbar = (props) => {
     const savePNG = () => {
         //set the the guides to transparent so they dont show in the output
         editor.canvas.getObjects().forEach(element => { 
-            if (element.type == 'guide') {
+            if (element.type == 'guide' || element.type == 'guide2'  ) {
                 element.set('opacity', 0);
             }
         });
@@ -35,8 +35,8 @@ export const Toolbar = (props) => {
 
         //set them back to visible
         editor.canvas.getObjects().forEach(element => {
-            if (element.type == 'guide') {
-                element.set('opacity', 0);
+            if (element.type == 'guide' || element.type == 'guide2'  ) {
+                element.set('opacity', 100);
             }
         });
     }
@@ -44,7 +44,7 @@ export const Toolbar = (props) => {
     const toggleGuides = () => { //turns guides on and off
         
         if (guidesOn) { //check to see if the different types of guides exist and then print them
-            if (partData.guides.x) {
+            if (partData.guides.x) { //x guides specified with pixels
                 partData.guides.x.forEach(element => { //trying to get guides to work
                     let l = new fabric.Line([element,0, element, partData.height], {
                         stroke:'red',
@@ -57,7 +57,7 @@ export const Toolbar = (props) => {
                     editor.canvas.add(l);
                 });
             }
-            if (partData.guides.xp) {
+            if (partData.guides.xp) { //x guides as percentages
                 partData.guides.xp.forEach(element => { //trying to get guides to work
                     let l = new fabric.Line([element/100 * partData.width,0, element/100 * partData.width, partData.height], {
                         stroke:'red',
@@ -70,7 +70,7 @@ export const Toolbar = (props) => {
                     editor.canvas.add(l);
                 });
             }
-            if (partData.guides.y) {
+            if (partData.guides.y) { //y guides specified with pixels
                 partData.guides.y.forEach(element => { //trying to get guides to work
                     let l = new fabric.Line([0,element, partData.width, element], {
                         stroke:'red',
@@ -83,7 +83,7 @@ export const Toolbar = (props) => {
                     editor.canvas.add(l);
                 });
             }
-            if (partData.guides.yp) {
+            if (partData.guides.yp) { //y guides specified as percentages
                 partData.guides.yp.forEach(element => { //trying to get guides to work
                     let l = new fabric.Line([0,element/100 * partData.height, partData.width, element/100 * partData.height], {
                         stroke:'red',
@@ -94,6 +94,37 @@ export const Toolbar = (props) => {
                     })
                     l.set("type", "guide");
                     editor.canvas.add(l);
+                });
+            }
+            if (partData.sockets) { //add guides where all the socket positions are
+                let allSockets = socketParser(partData.sockets);
+                allSockets.forEach(socket => {
+                    let c = new fabric.Circle({
+                        left:socket.x,
+                        top:socket.y,
+                        radius:3,
+                        fill:'red',
+                        eventable:false,
+                        selectable:false,
+                        excludeFromExport:true,
+                        hoverCursor:'default',
+                        originX:'center',
+                        originY:'center',
+                        type:'guide',
+                    });
+                    editor.canvas.add(c);
+                    let t = new fabric.Text(socket.name, {
+                        left:socket.x + 5,
+                        top:socket.y - 5,
+                        fill:'red',
+                        fontSize: 11,
+                        eventable:false,
+                        selectable:false,
+                        excludeFromExport:true,
+                        hoverCursor:'default',
+                        type:'guide',
+                    });
+                    editor.canvas.add(t);
                 });
             }
             editor.canvas.renderAll();
@@ -109,6 +140,18 @@ export const Toolbar = (props) => {
             })
         }
         setGuidesOn(!guidesOn);
+    }
+
+    const socketParser = (sockets) => {
+        let coords = [];
+        Object.keys(sockets).forEach(socket => {
+            if ((Object.keys(sockets[socket])[0] == 'x') && (Object.keys(sockets[socket])[1] == 'y')) {
+                coords.push({name:socket, x:sockets[socket]['x'], y:sockets[socket]['y']});
+            } else {
+                coords = coords.concat(socketParser(sockets[socket]));
+            }
+        });
+        return coords;
     }
 
     return (

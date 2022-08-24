@@ -18,7 +18,8 @@ export function createSegmentRect(editorInput) {
         partName:"segmentGroup",
         lines:6,
         lineStrokeWidth:5,
-        editor: editorInput
+        editor: editorInput,
+        hoverCursor:"pointer",
     });
 
     
@@ -45,7 +46,7 @@ export function createSegmentRect(editorInput) {
     });
 
     Object.defineProperty(object, 'top', { //wrapper setter that ensures the lines are updated after the change
-        set (value) {
+        set (value) {                                                   
             this.set('topValue', value);
             this.set('lines', this.get('lines'));
         },
@@ -82,7 +83,6 @@ export function createSegmentRect(editorInput) {
 
             for (let i = this.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
                 if (this.objects[i].type == "line") {
-                    console.log(this.objects[i]);
                     this.editor.canvas.add(this.objects[i]); //remove the old lines from both canvas and group
                 }
             }
