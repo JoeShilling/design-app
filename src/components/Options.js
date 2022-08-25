@@ -12,7 +12,7 @@ export const Options = (props) => {
     // const[objects, setObjects] = useState(props.objects);
     const deleteObject = () => {
         let ob = editor.canvas.getActiveObject();
-        if (ob.objects) {
+        if (ob.objects) {// if the object is custom and has sub-objects
             for (let i = ob.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
                 if (ob.objects[i].type == 'line') {
                     editor.canvas.remove(ob.objects[i]); //remove the old lines from both canvas and group
@@ -114,32 +114,35 @@ export const Options = (props) => {
                                     <label htmlFor="socket">Socket: </label>
                                     <select name="socket" id="socket" onChange={changeSocketWrapper}  defaultValue={objects[0].socket}>
                                         {Object.keys(findPosition(value.values, sockets)).map(socket => {
-                                            let s = findPosition(socket, sockets);
-                                            let c = new fabric.Circle({
-                                                left:s.x,
-                                                top:s.y,
-                                                radius:3,
-                                                fill:'red',
-                                                selectable:false,
-                                                excludeFromExport:true,
-                                                hoverCursor:'default',
-                                                originX:'center',
-                                                originY:'center',
-                                                type:'guide2',
-                                            });
-                                            editor.canvas.add(c);
-                                            let t = new fabric.Text(socket, {
-                                                left:s.x + 5,
-                                                top:s.y - 15,
-                                                fill:'red',
-                                                fontSize: 11,
-                                                eventable:false,
-                                                selectable:false,
-                                                excludeFromExport:true,
-                                                hoverCursor:'default',
-                                                type:'guide2',
-                                            });
-                                            editor.canvas.add(t);
+                                            if (editor.canvas.get('socketGuides')) {
+                                                let s = findPosition(socket, sockets);
+                                                let c = new fabric.Circle({
+                                                    left:s.x,
+                                                    top:s.y,
+                                                    radius:3,
+                                                    fill:'red',
+                                                    selectable:false,
+                                                    excludeFromExport:true,
+                                                    hoverCursor:'default',
+                                                    originX:'center',
+                                                    originY:'center',
+                                                    type:'guide2',
+                                                });
+                                                editor.canvas.add(c);
+                                                let t = new fabric.Text(socket, {
+                                                    left:s.x + 5,
+                                                    top:s.y - 15,
+                                                    fill:'red',
+                                                    fontSize: 11,
+                                                    eventable:false,
+                                                    selectable:false,
+                                                    excludeFromExport:true,
+                                                    hoverCursor:'default',
+                                                    type:'guide2',
+                                                });
+                                                editor.canvas.add(t);
+                                            };
+                                            
                                             return(
                                                 <option key={socket} value={socket}>{socket}</option>
                                             )
