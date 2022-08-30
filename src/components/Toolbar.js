@@ -1,9 +1,7 @@
 import '../data/segmentedRect';
 import { createSocketGuides } from '../socketGuides';
-import { React, useState, useEffect } from 'react';
-import {fabric} from 'fabric';
+import { React, useState} from 'react';
 import { saveAs } from 'file-saver';
-import { useFabricJSEditor } from 'fabricjs-react';
 
 //toolbar at top of the app, put generic utility features here
 
@@ -56,16 +54,15 @@ export const Toolbar = (props) => {
     }
 
     const toggleGuides = () => { //turns guides on and off
-        
-        if (guidesOn) { //check to see if the different types of guides exist and then print them
+        if (guidesOn) { //shows all the possible positions of a selected object
 
             editor.canvas.set('socketGuides', true);
 
             let ob = editor.canvas.getActiveObject(); //i hate this
-                for (let i = 0; i < partData.parts.length; i++) {
-                    if (partData.parts[i].name == ob.partName) {
-                        for (let p of partData.parts[i].options) { //joe this data structure is god awful please change it
-                            if (p.name == 'socket') {
+                for (let i = 0; i < partData.parts.length; i++) { //go through each part
+                    if (partData.parts[i].name == ob.partName) { //find the part we are have selected
+                        for (let p of partData.parts[i].options) { //go through each of its options 
+                            if (p.name == 'socket') { //find its sockets
                                 {Object.keys(findPosition(p.values, partData.sockets)).map(socket => {
                                     createSocketGuides(editor.canvas, socket, partData.sockets);
                                 })};
@@ -75,92 +72,6 @@ export const Toolbar = (props) => {
                         
                     };
                 };
-
-            
-            // if (partData.guides.x) { //x guides specified with pixels
-            //     partData.guides.x.forEach(element => { //trying to get guides to work
-            //         let l = new fabric.Line([element,0, element, partData.height], {
-            //             stroke:'red',
-            //             eventable:false,
-            //             selectable:false,
-            //             excludeFromExport:true,
-            //             hoverCursor:'default',
-            //         })
-            //         l.set("type", "guide");
-            //         editor.canvas.add(l);
-            //     });
-            // }
-            // if (partData.guides.xp) { //x guides as percentages
-            //     partData.guides.xp.forEach(element => { //trying to get guides to work
-            //         let l = new fabric.Line([element/100 * partData.width,0, element/100 * partData.width, partData.height], {
-            //             stroke:'red',
-            //             eventable:false,
-            //             selectable:false,
-            //             excludeFromExport:true,
-            //             hoverCursor:'default',
-            //         })
-            //         l.set("type", "guide");
-            //         editor.canvas.add(l);
-            //     });
-            // }
-            // if (partData.guides.y) { //y guides specified with pixels
-            //     partData.guides.y.forEach(element => { //trying to get guides to work
-            //         let l = new fabric.Line([0,element, partData.width, element], {
-            //             stroke:'red',
-            //             eventable:false,
-            //             selectable:false,
-            //             excludeFromExport:true,
-            //             hoverCursor:'default',
-            //         })
-            //         l.set("type", "guide");
-            //         editor.canvas.add(l);
-            //     });
-            // }
-            // if (partData.guides.yp) { //y guides specified as percentages
-            //     partData.guides.yp.forEach(element => { //trying to get guides to work
-            //         let l = new fabric.Line([0,element/100 * partData.height, partData.width, element/100 * partData.height], {
-            //             stroke:'red',
-            //             eventable:false,
-            //             selectable:false,
-            //             excludeFromExport:true,
-            //             hoverCursor:'default',
-            //         })
-            //         l.set("type", "guide");
-            //         editor.canvas.add(l);
-            //     });
-            // }
-            // if (partData.sockets) { //add guides where all the socket positions are
-            //     let allSockets = socketParser(partData.sockets);
-            //     allSockets.forEach(socket => {
-            //         let c = new fabric.Circle({
-            //             left:socket.x,
-            //             top:socket.y,
-            //             radius:3,
-            //             fill:'red',
-            //             eventable:false,
-            //             selectable:false,
-            //             excludeFromExport:true,
-            //             hoverCursor:'default',
-            //             originX:'center',
-            //             originY:'center',
-            //             type:'guide',
-            //         });
-            //         editor.canvas.add(c);
-            //         let t = new fabric.Text(socket.name, {
-            //             left:socket.x + 5,
-            //             top:socket.y - 5,
-            //             fill:'red',
-            //             fontSize: 11,
-            //             eventable:false,
-            //             selectable:false,
-            //             excludeFromExport:true,
-            //             hoverCursor:'default',
-            //             type:'guide',
-            //         });
-            //         editor.canvas.add(t);
-            //     });
-            // }
-            // editor.canvas.renderAll();
         } else {
             editor.canvas.set('socketGuides', false);
             let toDelete = [];
@@ -177,17 +88,6 @@ export const Toolbar = (props) => {
 
     }
 
-    const socketParser = (sockets) => {
-        let coords = [];
-        Object.keys(sockets).forEach(socket => {
-            if ((Object.keys(sockets[socket])[0] == 'x') && (Object.keys(sockets[socket])[1] == 'y')) {
-                coords.push({name:socket, x:sockets[socket]['x'], y:sockets[socket]['y']});
-            } else {
-                coords = coords.concat(socketParser(sockets[socket]));
-            }
-        });
-        return coords;
-    }
 
     return (
         <div>

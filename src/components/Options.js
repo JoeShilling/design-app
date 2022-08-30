@@ -1,6 +1,5 @@
-import { React , useState} from 'react';
-import { changeLines } from '../data/segmentedRect';
-import { fabric } from 'fabric';
+import { React } from 'react';
+import { createSocketGuides } from '../socketGuides';
 
 //shows available options for the selected part
 //TODO to make this so it doesnt explode if you select something that hasnt been set up yet
@@ -79,17 +78,6 @@ export const Options = (props) => {
         })
     };
 
-    const socketParser = (sockets) => {
-        let coords = [];
-        Object.keys(sockets).forEach(socket => {
-            if ((Object.keys(sockets[socket])[0] == 'x') && (Object.keys(sockets[socket])[1] == 'y')) {
-                coords.push({name:socket, x:sockets[socket]['x'], y:sockets[socket]['y']});
-            } else {
-                coords = coords.concat(socketParser(sockets[socket]));
-            }
-        });
-        return coords;
-    }
 
     if (objects.length == 1 ) { //if only one object is selected
         let i =0; //define it out of the loop so we can access it later
@@ -115,32 +103,7 @@ export const Options = (props) => {
                                     <select name="socket" id="socket" onChange={changeSocketWrapper}  defaultValue={objects[0].socket}>
                                         {Object.keys(findPosition(value.values, sockets)).map(socket => {
                                             if (editor.canvas.get('socketGuides')) {
-                                                let s = findPosition(socket, sockets);
-                                                let c = new fabric.Circle({
-                                                    left:s.x,
-                                                    top:s.y,
-                                                    radius:3,
-                                                    fill:'red',
-                                                    selectable:false,
-                                                    excludeFromExport:true,
-                                                    hoverCursor:'default',
-                                                    originX:'center',
-                                                    originY:'center',
-                                                    type:'guide2',
-                                                });
-                                                editor.canvas.add(c);
-                                                let t = new fabric.Text(socket, {
-                                                    left:s.x + 5,
-                                                    top:s.y - 15,
-                                                    fill:'red',
-                                                    fontSize: 11,
-                                                    eventable:false,
-                                                    selectable:false,
-                                                    excludeFromExport:true,
-                                                    hoverCursor:'default',
-                                                    type:'guide2',
-                                                });
-                                                editor.canvas.add(t);
+                                                createSocketGuides(editor.canvas, socket, sockets);
                                             };
                                             
                                             return(

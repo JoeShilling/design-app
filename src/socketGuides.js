@@ -1,4 +1,6 @@
 import {fabric} from 'fabric';
+//collection of functions used to display the socket 'guides', the markers that show where a particular object can be positioned.
+//they're in a seperate file as they need to be used by other toolbar.js and options.js
 
 export function createSocketGuides(canvas, socket, sockets) { //socket and the canvas to put it on
     let s = findPosition(socket, sockets);

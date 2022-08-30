@@ -55,7 +55,7 @@ const PartButton = (props) => {
                 fabric.Image.fromURL(require(`../data/images/${props.part.file}`), (i) => {
                     i.set('left', 100);
                     i.set('top', 100);
-                    editor.canvas.add(addListeners(i, props.part, sockets));
+                    editor.canvas.add(setProperties(i, props.part, sockets));
                 });
                 break;
 
@@ -70,37 +70,23 @@ const PartButton = (props) => {
                         height: 100,
                         splitByGrapheme: true,
                     });
-                    editor.canvas.add(addListeners(object, props.part, sockets));
+                    editor.canvas.add(setProperties(object, props.part, sockets));
                 })
                 break;
-            case 'segmentRect': //custom part
+            case 'segmentGroup':
+                
                 try {
-                    var object = new fabric.SegmentRect({
-                        left:100,
-                        top:100,
-                        width:400,
-                        height:400,
-                        stroke:"white",
-                        fill:'black',
-                        strokeWidth:5,
-                        borderScaleFactor:4,
-                        segments:4,
-                        strokeUniform:true,
-                    });
+                    var object = createSegmentRect(editor);
                 }
                 catch (e) {
-                    console.log("SegmentRect part probably not loaded");
+                    console.log("SegmentGroup part probably not loaded");
                     throw(e);
                 }
-
-                break;
-            case 'segmentGroup':
-                var object = createSegmentRect(editor);
                 break;
         }
         
         if (object != null) {
-            editor.canvas.add(addListeners(object, props.part, sockets));
+            editor.canvas.add(setProperties(object, props.part, sockets));
         }
     }
     
@@ -117,7 +103,7 @@ const PartButton = (props) => {
         }
     }
 
-    const addListeners = (object, part, sockets) => {
+    const setProperties = (object, part, sockets) => {
         object.set('partName', part.name); //lets us see what partType the object is
         object.set('lockMovementX', true); //by default you cant drag around parts
         object.set('lockMovementY', true);
@@ -135,38 +121,6 @@ const PartButton = (props) => {
             }
             
         }
-
-        /* viusal controls no longer used so we don't need this?
-        //when the visual controls are used, reset the values in the input forms
-        object.on({'scaling': function(e) { 
-            if (part.options.includes('height')) {
-                document.getElementById('height').value = '';
-                document.getElementById('height').placeholder = (this.get('height') * this.get('scaleY')).toFixed(2);
-            }
-            if (part.options.includes('width')) {
-                document.getElementById('width').value = '';
-                document.getElementById('width').placeholder = (this.get('width') * this.get('scaleX')).toFixed(2);
-            } 
-        }});
-
-        object.on({'moving': function(e) {
-            if (part.options.includes('xPos')) {
-                document.getElementById('left').value = '';
-                document.getElementById('left').placeholder = (this.get('left')).toFixed(2);
-            }
-            if (part.options.includes('yPos')) {
-                document.getElementById('top').value = '';
-                document.getElementById('top').placeholder = (this.get('top')).toFixed(2);
-            }
-        }});
-        
-        object.on({'rotating': function(e) {
-            if (part.options.includes('angle')) {
-                document.getElementById('angle').value = '';
-                document.getElementById('angle').placeholder = (this.get('angle')).toFixed(2);
-            }
-        }});
-        */
         return(object);
     }
     

@@ -57,28 +57,6 @@ export const partData = {
             'angle'
         ]
         },
-        {name:'Segments',
-            type:"segmentRect",
-            properties:{
-                socket:'displayA',
-                width:257,
-                height:257,
-                stroke:"white",
-                fill:'transparent',
-                strokeWidth:3,
-                lines:6,
-            },
-            options:[
-                {name:'socket',
-                    values:'display'
-                },
-                {name:'lines',
-                    type:'slider',
-                    min:1,
-                    max:10,
-                },
-            ]
-        },
         {name:"Paragraph",
             type:"text",
             properties: {
