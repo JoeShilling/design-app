@@ -22,8 +22,6 @@ export function createSegmentRect(editorInput) {
         hoverCursor:"pointer",
     });
 
-    
-
     Object.defineProperty(object, 'lineStrokeWidth', { //wrapper setter that ensures the lines are updated after the change
         set (width) {
             this.set('lineStrokeWidthValue',  parseInt(width)); 
@@ -33,7 +31,6 @@ export function createSegmentRect(editorInput) {
             return(this.lineStrokeWidthValue);
         }
     });
-
 
     Object.defineProperty(object, 'left', { //wrapper setter that ensures the lines are updated after the change
         set (value) {
@@ -103,4 +100,18 @@ export function createSegmentRect(editorInput) {
     });
 
     return(object);
+}
+
+
+export function create9x9SegmentRect(editorInput) {
+    let miniRects = [];
+    for (let counter = 0; counter < 9; counter++) {
+        let ob = createSegmentRect(editorInput)
+        ob.set('width', 85.7);
+        ob.set('height', 85.7);
+        ob.setCoords();
+        miniRects.push(ob);
+    };
+
+
 }

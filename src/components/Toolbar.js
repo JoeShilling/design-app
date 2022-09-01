@@ -58,7 +58,8 @@ export const Toolbar = (props) => {
 
             editor.canvas.set('socketGuides', true);
 
-            let ob = editor.canvas.getActiveObject(); //i hate this
+            let ob;
+            if (ob = editor.canvas.getActiveObject()) { // if there is a selected object
                 for (let i = 0; i < partData.parts.length; i++) { //go through each part
                     if (partData.parts[i].name == ob.partName) { //find the part we are have selected
                         for (let p of partData.parts[i].options) { //go through each of its options 
@@ -72,6 +73,8 @@ export const Toolbar = (props) => {
                         
                     };
                 };
+            };
+            
         } else {
             editor.canvas.set('socketGuides', false);
             let toDelete = [];
