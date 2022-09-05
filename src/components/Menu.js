@@ -2,7 +2,7 @@ import { React } from 'react'
 import { fabric } from 'fabric'
 import {useEffect, useState} from 'react';
 import FontFaceObserver from 'fontfaceobserver';
-import {createSegmentRect} from '../data/segmentedRect'
+import {createSegmentRect, create9x9SegmentRect} from '../data/segmentedRect';
 
 //the menu of available parts to be added to the canvas
 
@@ -80,6 +80,17 @@ const PartButton = (props) => {
                 }
                 catch (e) {
                     console.log("SegmentGroup part probably not loaded");
+                    throw(e);
+                }
+                break;
+
+            case 'segment9x9':
+            
+                try {
+                    var object = create9x9SegmentRect(editor);
+                }
+                catch (e) {
+                    console.log("Segment9x9 part probably not loaded");
                     throw(e);
                 }
                 break;

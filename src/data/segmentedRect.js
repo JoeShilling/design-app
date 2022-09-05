@@ -80,7 +80,7 @@ export function createSegmentRect(editorInput) {
 
             for (let i = this.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
                 if (this.objects[i].type == "line") {
-                    this.editor.canvas.add(this.objects[i]); //remove the old lines from both canvas and group
+                    this.editor.canvas.add(this.objects[i]); //add new lines to canvas
                 }
             }
 
@@ -106,12 +106,37 @@ export function createSegmentRect(editorInput) {
 export function create9x9SegmentRect(editorInput) {
     let miniRects = [];
     for (let counter = 0; counter < 9; counter++) {
-        let ob = createSegmentRect(editorInput)
+        let ob = createSegmentRect(editorInput);
         ob.set('width', 85.7);
         ob.set('height', 85.7);
+        ob.set('left', 64 + (85.7 * (counter % 3)));
+        ob.set('top', 441 + (85.7 * Math.floor(counter / 3)));
+        ob.set('lines', 5);
+        ob.set('lineStrokeWidth', 5);
         ob.setCoords();
         miniRects.push(ob);
     };
+    let g = new fabric.Group(miniRects);
 
+    Object.defineProperty(g, 'left', {
+        set (number) {
+            this.leftValue = number;
+        },
+        get () {
+            return(this.leftValue)
+        }
+    });
+    Object.defineProperty(g, 'top', {
+        set (number) {
+            this.topValue = number;
+        },
+        get () {
+            return(this.topValue)
+        }
+    });
+
+
+    return(g);
+    console.log(miniRects);
 
 }

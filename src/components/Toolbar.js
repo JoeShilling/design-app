@@ -2,6 +2,7 @@ import '../data/segmentedRect';
 import { createSocketGuides } from '../socketGuides';
 import { React, useState} from 'react';
 import { saveAs } from 'file-saver';
+import { create9x9SegmentRect } from '../data/segmentedRect';
 
 //toolbar at top of the app, put generic utility features here
 
@@ -53,6 +54,11 @@ export const Toolbar = (props) => {
         }
     }
 
+    const testSomeFunction = () => { //whack whatever function in here we're testing
+        create9x9SegmentRect(editor);
+
+    }
+
     const toggleGuides = () => { //turns guides on and off
         if (guidesOn) { //shows all the possible positions of a selected object
 
@@ -97,6 +103,7 @@ export const Toolbar = (props) => {
             <button onClick={()=>saveSVG()}>Save as SVG</button>
             <button onClick={()=>savePNG()}>Save as PNG</button>
             <button onClick={()=>toggleGuides()}>Toggle Guides</button>
+            <button onClick={()=>testSomeFunction()}>Test Function</button>
         </div>
     );
 }
