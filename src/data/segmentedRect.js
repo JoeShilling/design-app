@@ -98,7 +98,7 @@ export function createSegmentRect(editorInput) {
             return(num);
         }
     });
-
+    
     return(object);
 }
 
@@ -108,7 +108,7 @@ export function create9x9SegmentRect(editorInput) {
     for (let counter = 0; counter < 9; counter++) {
         let ob = createSegmentRect(editorInput);
         ob.set('width', 85.7);
-        ob.set('height', 85.7);
+        ob.set('height', 82);
         ob.set('left', 64 + (85.7 * (counter % 3)));
         ob.set('top', 441 + (85.7 * Math.floor(counter / 3)));
         ob.set('lines', 5);
@@ -118,9 +118,20 @@ export function create9x9SegmentRect(editorInput) {
     };
     let g = new fabric.Group(miniRects);
 
+    g.setObjectProperty = (property, value) => { //sets a given property to a value for all objects in the group
+        g.getObjects().forEach(object => {
+            object.set(property, value);
+        });
+    };
+
     Object.defineProperty(g, 'left', {
         set (number) {
             this.leftValue = number;
+            let counter =0;
+            this.getObjects().forEach(object => {
+                object.set('left', number + (85.7 * (counter % 3)));
+                counter++;
+            });
         },
         get () {
             return(this.leftValue)
@@ -129,14 +140,36 @@ export function create9x9SegmentRect(editorInput) {
     Object.defineProperty(g, 'top', {
         set (number) {
             this.topValue = number;
+            let counter =0;
+            this.getObjects().forEach(object => {
+                object.set('top', number + (85.7 * Math.floor(counter / 3)))
+                counter++;
+            });
         },
         get () {
             return(this.topValue)
         }
     });
 
+    Object.defineProperty(g, 'lines', {
+        set (number) {
+            this.setObjectProperty('lines', number);
+        },
+        get () {
+            return(this.getObjects()[0].lines)
+        }
+    });
 
+    Object.defineProperty(g, 'lineStrokeWidth', {
+        set (number) {
+            this.setObjectProperty('lineStrokeWidth', number);
+        },
+        get () {
+            return(this.getObjects()[0].lines)
+        }
+    });
+
+    g._calcBounds();
     return(g);
-    console.log(miniRects);
 
 }
