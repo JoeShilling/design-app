@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import { createSocketGuides } from '../socketGuides';
 
 //shows available options for the selected part
@@ -7,6 +7,8 @@ export const Options = (props) => {
     const editor = props.editor;
     const objects = props.objects;
     const sockets = props.sockets;
+
+    const [gridArray, setGridArray] = useState([]);
     
     // const[objects, setObjects] = useState(props.objects);
     const deleteObject = () => {
@@ -16,6 +18,14 @@ export const Options = (props) => {
                 if (ob.objects[i].type == 'line') {
                     editor.canvas.remove(ob.objects[i]); //remove the old lines from both canvas and group
                     ob.objects.splice(i,1);
+                }
+            }
+        }
+        else if (ob._objects) {
+            for (let i = ob._objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
+                if (ob._objects[i].type == 'line') {
+                    editor.canvas.remove(ob._objects[i]); //remove the old lines from both canvas and group
+                    ob._objects.splice(i,1);
                 }
             }
         }
@@ -78,6 +88,17 @@ export const Options = (props) => {
         })
     };
 
+    const setOpacity = (square) => { //square is what we want to change.
+        if (objects[0]._objects[square].lineOpacity == 0) {
+            objects[0]._objects[square].lineOpacity = 100;
+        } else {
+            objects[0]._objects[square].lineOpacity = 0;
+        }
+        let temp = [...gridArray];
+        temp[square] = !temp[square];
+        setGridArray(temp);
+        objects[0]._objects[square].set('lines', objects[0]._objects[square].get('lines'));
+    };
 
     if (objects.length == 1 ) { //if only one object is selected
         let i =0; //define it out of the loop so we can access it later
@@ -90,6 +111,23 @@ export const Options = (props) => {
 
 
         if (i != props.parts.length) { //if this is false it means the selected object isnt in the parts list.
+
+            if (objects[0].type == 'group') {
+                let state = [];
+                objects[0]._objects.forEach((each) => {if (each.opacity != 0) {state.push(true)} else {state.push(false)}});
+                let needToUpdateState = false;
+                for (let i = 0; i < state.length; i++) {
+                    if (state[i] != gridArray[i]) {
+                        needToUpdateState = true;
+                    }
+                } 
+                
+                if (needToUpdateState) {
+                    setGridArray(state);
+                };
+ 
+            };
+            
             return (
                 <div>
                    
@@ -113,6 +151,22 @@ export const Options = (props) => {
                                     </select>
                                     </div>
                                 )
+                                break;
+
+                            case 'grid': //used for the 9x9 grid shapes
+                                return(
+                                    <form className="gridOfChecks" key='gridOfChecks'>
+                                        {gridArray.map((grid, index) => {
+                                            if (grid) {
+                                                return(<label key={"gridLabel"+index.toString()}><input key={"grid"+index.toString()} type="checkbox" checked onChange={() => {setOpacity(index);}}/></label>)
+                                            }
+                                            else {
+                                                return(<label key={"gridLabel"+index.toString()}><input key={"grid"+index.toString()} type="checkbox" onChange={() => {setOpacity(index);}}/></label>)
+                                            }
+                                        })}
+                                    </form>
+
+                                );    
                                 break;
 
                             default:

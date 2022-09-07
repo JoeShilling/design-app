@@ -187,7 +187,7 @@ export const partData = {
                 {name:'lines',
                     type:'slider',
                     min:0,
-                    max:30,
+                    max:15,
                 },
                 {name:'lineStrokeWidth',
                     type:'slider',
@@ -196,7 +196,7 @@ export const partData = {
                 },
             ],
         },
-        {name:"9x9segmentGroup",
+        {name:"9x9S egmentGroup",
             type:"segment9x9",
             properties: {
                 socket:"displayA1",
@@ -211,13 +211,16 @@ export const partData = {
                 {name:'lines',
                     type:'slider',
                     min:0,
-                    max:30,
+                    max:15,
                 },
                 {name:'lineStrokeWidth',
                     type:'slider',
                     min:1,
                     max:15,
                 },
+                {name:"grid",
+
+                }
             ],
         },
     ]

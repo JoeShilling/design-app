@@ -14,6 +14,7 @@ export function createSegmentRect(editorInput) {
         fill:"transparent",
         strokeWidth:1,
         opacity:0,
+        lineOpacity:100,
         objects:[],
         partName:"segmentGroup",
         lines:6,
@@ -72,6 +73,7 @@ export function createSegmentRect(editorInput) {
                 this.objects.push(new fabric.Line([x+(s*i)- (this.lineStrokeWidth/2), y, x+(s*i) - (this.lineStrokeWidth/2), y+h], {
                     stroke: this.stroke,
                     strokeWidth: this.lineStrokeWidth,
+                    opacity: this.lineOpacity,
                     selectable:false,
                     evented:false,
                     type:"line"
@@ -96,6 +98,16 @@ export function createSegmentRect(editorInput) {
                 }
             }
             return(num);
+        }
+    });
+
+    Object.defineProperty(object, 'opacity', {
+        set(number) {
+            this.objects.forEach((object) => {object.set('opacity', number)});
+            this.lineOpacity = number;  
+        },
+        get() {
+            return(this.lineOpacity);
         }
     });
     
