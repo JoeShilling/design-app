@@ -9,6 +9,7 @@ import {createSegmentRect, create9x9SegmentRect} from '../data/segmentedRect';
 export const Menu = (props) => {
     const editor = props.editor;
     const parts = props.partData;
+
     //generate a list of all the available parts 
     return (
         <div>
@@ -132,6 +133,11 @@ const PartButton = (props) => {
             }
             
         }
+        if (object.get('type') == 'group') { //currently the group objects dont set their boundaries properly, have to force it with _calcBounds
+            object._calcBounds();
+            editor.canvas.renderAll();
+        }
+
         return(object);
     }
     

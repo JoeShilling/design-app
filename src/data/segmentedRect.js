@@ -110,6 +110,16 @@ export function createSegmentRect(editorInput) {
             return(this.lineOpacity);
         }
     });
+
+    object.deleteMe = () => {
+        for (let i = object.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
+            if (object.objects[i].type == 'line') {
+                object.editor.canvas.remove(object.objects[i]); //remove the old lines from both canvas and group
+                object.objects.splice(i,1);
+            }
+        }
+        object.editor.canvas.remove(object);
+    }
     
     return(object);
 }
@@ -129,6 +139,7 @@ export function create9x9SegmentRect(editorInput) {
         miniRects.push(ob);
     };
     let g = new fabric.Group(miniRects);
+    g.set('hoverCursor', 'pointer');
 
     g.setObjectProperty = (property, value) => { //sets a given property to a value for all objects in the group
         g.getObjects().forEach(object => {
@@ -181,7 +192,18 @@ export function create9x9SegmentRect(editorInput) {
         }
     });
 
-    g._calcBounds();
+    g.editor = editorInput;
+    g.deleteMe = () => {
+        for (let i = g._objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
+
+            if (g._objects[i].type == 'rect') {
+                console.log("rect");
+                g._objects[i].deleteMe();
+            }
+        }
+        g.editor.canvas.remove(g);
+    }
+
     return(g);
 
 }

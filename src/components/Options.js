@@ -13,7 +13,11 @@ export const Options = (props) => {
     // const[objects, setObjects] = useState(props.objects);
     const deleteObject = () => {
         let ob = editor.canvas.getActiveObject();
-        if (ob.objects) {// if the object is custom and has sub-objects
+
+        if (ob.deleteMe != null) { //if there is a custom delete function for the object, run it
+            ob.deleteMe();
+        }
+        else if (ob.objects) {// if the object is custom and has sub-objects
             for (let i = ob.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
                 if (ob.objects[i].type == 'line') {
                     editor.canvas.remove(ob.objects[i]); //remove the old lines from both canvas and group
@@ -28,8 +32,11 @@ export const Options = (props) => {
                     ob._objects.splice(i,1);
                 }
             }
+        } 
+        else {
+            editor.canvas.remove(ob);
         }
-        editor.canvas.remove(ob);
+
     }
 
     const changeGeneric = (e) => {

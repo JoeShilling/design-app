@@ -55,7 +55,7 @@ export const Toolbar = (props) => {
     }
 
     const testSomeFunction = () => { //whack whatever function in here we're testing
-        create9x9SegmentRect(editor);
+        console.log("This is a button to attach test functions to");
 
     }
 

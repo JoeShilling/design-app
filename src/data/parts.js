@@ -196,7 +196,7 @@ export const partData = {
                 },
             ],
         },
-        {name:"9x9S egmentGroup",
+        {name:"9x9 SegmentGroup",
             type:"segment9x9",
             properties: {
                 socket:"displayA1",
