@@ -9,7 +9,6 @@ import {createSegmentRect, create9x9SegmentRect} from '../data/segmentedRect';
 export const Menu = (props) => {
     const editor = props.editor;
     const parts = props.partData;
-
     //generate a list of all the available parts 
     return (
         <div>

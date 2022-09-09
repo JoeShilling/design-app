@@ -101,15 +101,15 @@ export function createSegmentRect(editorInput) {
         }
     });
 
-    Object.defineProperty(object, 'opacity', {
-        set(number) {
-            this.objects.forEach((object) => {object.set('opacity', number)});
-            this.lineOpacity = number;  
-        },
-        get() {
-            return(this.lineOpacity);
-        }
-    });
+    // Object.defineProperty(object, 'opacity', { //this caused the shape to display the outline rectangle, im leaving it as a comment in case it breaks anything else by not being here
+    //     set(number) {
+    //         this.objects.forEach((object) => {object.set('opacity', number)});
+    //         this.lineOpacity = number;  
+    //     },
+    //     get() {
+    //         return(this.lineOpacity);
+    //     }
+    // });
 
     object.deleteMe = () => {
         for (let i = object.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements

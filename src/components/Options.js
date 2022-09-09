@@ -119,9 +119,9 @@ export const Options = (props) => {
 
         if (i != props.parts.length) { //if this is false it means the selected object isnt in the parts list.
 
-            if (objects[0].type == 'group') {
+            if (objects[0].partName == '9x9 SegmentGroup') {
                 let state = [];
-                objects[0]._objects.forEach((each) => {if (each.opacity != 0) {state.push(true)} else {state.push(false)}});
+                objects[0]._objects.forEach((each) => {if (each.lineOpacity != 0) {state.push(true)} else {state.push(false)}});
                 let needToUpdateState = false;
                 for (let i = 0; i < state.length; i++) {
                     if (state[i] != gridArray[i]) {
