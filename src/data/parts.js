@@ -78,7 +78,7 @@ export const partData = {
                 },
                 {name:"text",
                     type:"textArea"
-                }
+                },
             ]
         },
         {name:"ParagraphBold",
@@ -102,7 +102,7 @@ export const partData = {
                 },
                 {name:"text",
                     type:"textArea"
-                }
+                },
             ]
         },
         {name:"Logo",
@@ -218,7 +218,17 @@ export const partData = {
                     min:1,
                     max:15,
                 },
-                {name:"grid",
+                {name:"grid"},
+                // {name:"fill",
+                //     type:"dropDown",
+                //     values:[
+                //         {name:"Green", value:"#41B92E"},
+                //         {name:"Pink", value:"#B92E9E"}
+                //     ],
+                // },
+                {name:"fill",
+                    type:"colour",
+                    colours:["#41B92E", "#B92E9E"],
 
                 }
             ],

@@ -53,6 +53,23 @@ export function createSegmentRect(editorInput) {
         }
     });
 
+    // Object.defineProperty(object, 'fill', {
+    //     set (colour) {
+    //         console.log('setting fill');
+    //         for (let i = this.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
+    //             if (this.objects[i].type == 'line') {
+    //                 this.objects[i].stroke = colour; //the interior objects are lines so Stroke is the attribute to change their colour;
+    //             }
+    //         }
+    //         this.set('lines', this.get('lines'));
+
+    //     },
+    //     get () {
+    //         return (object.objects[0].fill);
+    //     }
+
+    // });
+
     Object.defineProperty(object, 'lines', { //essentially a render function for the lines?
         set (number) {
             number++;
@@ -189,6 +206,16 @@ export function create9x9SegmentRect(editorInput) {
         },
         get () {
             return(this.getObjects()[0].lines)
+        }
+    });
+
+    Object.defineProperty(g, 'fill', {
+        set (colour) {
+            this.setObjectProperty('stroke', colour);
+            this.set('lines', this.lines)
+        } , 
+        get () {
+            return('hello');
         }
     });
 

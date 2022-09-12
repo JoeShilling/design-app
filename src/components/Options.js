@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import { createSocketGuides } from '../socketGuides';
+import { CirclePicker } from 'react-color';
 
 //shows available options for the selected part
 //TODO to make this so it doesnt explode if you select something that hasnt been set up yet
@@ -67,6 +68,12 @@ export const Options = (props) => {
         objects[0].set('top', socket.y);
         objects[0].set('left', socket.x);
         objects[0].set('socket', target);
+        editor.canvas.renderAll();
+    }
+
+    const changeColor = (color, name) => {
+
+        objects[0].set(name, color.hex);
         editor.canvas.renderAll();
     }
 
@@ -177,7 +184,7 @@ export const Options = (props) => {
                                 break;
 
                             default:
-                                switch (value.type) { //then sort th others by type of options
+                                switch (value.type) { //then sort the others by type of options
                                     case 'slider':
                                         return(<div key={value.name}>
                                             <label htmlFor={value.name}>{value.name}: </label>
@@ -188,6 +195,22 @@ export const Options = (props) => {
                                         return(<div key={value.name}>
                                             <label htmlFor={value.name}>{value.name}: </label>
                                             <textarea id={value.name} name={value.name} rows="4" cols="50" onChange={changeText} defaultValue={objects[0].get('text')}></textarea>
+                                        </div>)
+                                    case 'dropDown':
+                                        return(<div key={value.name}>
+                                            <label htmlFor={value.name}>{value.name}: </label>
+                                            <select name="fill;" id="fill" onChange={changeGeneric} defaultValue={objects[0].get('fill')}>
+                                                {value.values.map(option => {
+                                                    return(
+                                                        <option key={option.name} value = {option.value}>{option.name}</option>
+                                                    )
+                                                })}
+                                            </select>
+                                        </div>)
+
+                                    case 'colour':
+                                        return(<div key={value.name}>
+                                            <CirclePicker name={value.name} id={value.name} onChangeComplete={(colour, event) =>{changeColor(colour,value.name)}} colors={value.colours} ></CirclePicker>
                                         </div>)
                                 }
                                 break;
