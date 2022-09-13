@@ -104,32 +104,14 @@ export const partData = {
             {name:"text",
                 type:"textArea"
             },
-        ]
-    },
-        {name:"ParagraphBold",
-            type:"text",
-            properties: {
-                socket:"textLeft",
-                fontFamily:'institute',
-                fill:'white',
-                fontWeight:'bold',
-                fontSize:15,
-                width:771,
+            {name:"fontWeight",
+                type:"dropDown",
+                values:[
+                    {name:"Normal", value:"normal"},
+                    {name:"Bold", value:"bold"}
+                ],
             },
-            options:[
-                {name:"socket",
-                    values:"text"
-                },
-                {name:'fontSize',
-                    type:'slider',
-                    min:5,
-                    max:60
-                },
-                {name:"text",
-                    type:"textArea"
-                },
-            ]
-        },
+        ]},
         {name:"Logo",
             type:"image",
             file:"institute.svg",
@@ -142,8 +124,7 @@ export const partData = {
             'width',
             'yPos',
             'xPos'
-        ],
-        },
+        ]},
 
         {name:"segmentGroup",
             type:"segmentGroup",

@@ -199,7 +199,7 @@ export const Options = (props) => {
                                     case 'dropDown':
                                         return(<div key={value.name}>
                                             <label htmlFor={value.name}>{value.name}: </label>
-                                            <select name="fill;" id="fill" onChange={changeGeneric} defaultValue={objects[0].get('fill')}>
+                                            <select name={value.name} id={value.name} onChange={changeGeneric} defaultValue={objects[0].get('fill')}>
                                                 {value.values.map(option => {
                                                     return(
                                                         <option key={option.name} value = {option.value}>{option.name}</option>
