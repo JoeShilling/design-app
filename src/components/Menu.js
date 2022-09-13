@@ -118,6 +118,7 @@ const PartButton = (props) => {
         object.set('partName', part.name); //lets us see what partType the object is
         object.set('lockMovementX', true); //by default you cant drag around parts
         object.set('lockMovementY', true);
+        object.set("hoverCursor", "pointer");
         object.setControlsVisibility({bl:false,br:false,mb:false,ml:false,mr:false,mt:false,tl:false,tr:false,mtr:false}); //turn off all the visual controls
         
         //http://fabricjs.com/docs/fabric.Object.html

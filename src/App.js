@@ -17,10 +17,10 @@ const App = () =>  {
     editor?.canvas.setHeight(partData.height);
     editor?.canvas.setWidth(partData.width);
     editor?.canvas.renderAll();
-
-    useEffect(() => {
-
-    });
+    if (editor) { //stops group selections as they caused visual glitches with all the custom group objects
+        editor.canvas.selection=false;
+        editor.canvas.preserveObjectStacking=true;
+    };
 
     //keyboard shortcuts
     const undo = (event) => {

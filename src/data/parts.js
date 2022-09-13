@@ -81,6 +81,31 @@ export const partData = {
                 },
             ]
         },
+        {name:"DisplayParagraph",
+        type:"text",
+        properties: {
+            socket:"displayA",
+            fontFamily:'institute',
+            fill:'white',
+            fontWeight:'normal',
+            fontSize:15,
+            width:257,
+            height:257
+        },
+        options:[
+            {name:"socket",
+                values:"display"
+            },
+            {name:'fontSize',
+                type:'slider',
+                min:5,
+                max:60
+            },
+            {name:"text",
+                type:"textArea"
+            },
+        ]
+    },
         {name:"ParagraphBold",
             type:"text",
             properties: {
@@ -106,8 +131,8 @@ export const partData = {
             ]
         },
         {name:"Logo",
-        type:"image",
-        file:"institute.svg",
+            type:"image",
+            file:"institute.svg",
         
         properties:{
             socket:"title"
@@ -170,32 +195,32 @@ export const partData = {
                 },
             ],
         },
-        {name:"microSegmentGroup",
-            type:"segmentGroup",
-            properties: {
+        // {name:"microSegmentGroup",
+        //     type:"segmentGroup",
+        //     properties: {
 
-                socket:"displayA1",
-                lineStrokeWidth:5,
-                width:85.7,
-                height:85.7,
-                lines:6,
-            },
-            options:[
-                {name:'socket',
-                    values:"microDisplay"
-                },
-                {name:'lines',
-                    type:'slider',
-                    min:0,
-                    max:15,
-                },
-                {name:'lineStrokeWidth',
-                    type:'slider',
-                    min:1,
-                    max:15,
-                },
-            ],
-        },
+        //         socket:"displayA1",
+        //         lineStrokeWidth:5,
+        //         width:85.7,
+        //         height:85.7,
+        //         lines:6,
+        //     },
+        //     options:[
+        //         {name:'socket',
+        //             values:"microDisplay"
+        //         },
+        //         {name:'lines',
+        //             type:'slider',
+        //             min:0,
+        //             max:15,
+        //         },
+        //         {name:'lineStrokeWidth',
+        //             type:'slider',
+        //             min:1,
+        //             max:15,
+        //         },
+        //     ],
+        // },
         {name:"9x9 SegmentGroup",
             type:"segment9x9",
             properties: {
@@ -228,7 +253,7 @@ export const partData = {
                 // },
                 {name:"fill",
                     type:"colour",
-                    colours:["#41B92E", "#B92E9E"],
+                    colours:["#FFFFFF","#5893AB", "#DDA0A6", "#FDB629", "#B0B0A9", "#FF471C", "#75BAB5", "#005E82ß"],
 
                 }
             ],

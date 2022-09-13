@@ -145,7 +145,7 @@ export const Options = (props) => {
             return (
                 <div>
                    
-                   <button onClick={() => deleteObject()}>Delete Part</button>
+                   <button onClick={() => deleteObject()}>Delete</button><br></br>
                     {props.parts[i].options.map(value => {
                         switch(value.name) { //first check for any options that need specific functions, atm that just sockets
                             case 'socket':

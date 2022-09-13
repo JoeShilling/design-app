@@ -20,7 +20,6 @@ export function createSegmentRect(editorInput) {
         lines:6,
         lineStrokeWidth:5,
         editor: editorInput,
-        hoverCursor:"pointer",
     });
 
     Object.defineProperty(object, 'lineStrokeWidth', { //wrapper setter that ensures the lines are updated after the change
@@ -128,6 +127,15 @@ export function createSegmentRect(editorInput) {
     //     }
     // });
 
+    object.sendToBack = () => {
+        for (let i = object.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
+            if (object.objects[i].type == 'line') {
+                object.editor.canvas.sendToBack(object.objects[i]);
+            }
+        }
+        object.editor.canvas.renderAll();
+    }
+
     object.deleteMe = () => {
         for (let i = object.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
             if (object.objects[i].type == 'line') {
@@ -156,7 +164,6 @@ export function create9x9SegmentRect(editorInput) {
         miniRects.push(ob);
     };
     let g = new fabric.Group(miniRects);
-    g.set('hoverCursor', 'pointer');
 
     g.setObjectProperty = (property, value) => { //sets a given property to a value for all objects in the group
         g.getObjects().forEach(object => {
@@ -167,7 +174,7 @@ export function create9x9SegmentRect(editorInput) {
     Object.defineProperty(g, 'left', {
         set (number) {
             this.leftValue = number;
-            let counter =0;
+            let counter = 0;
             this.getObjects().forEach(object => {
                 object.set('left', number + (85.7 * (counter % 3)));
                 counter++;
@@ -220,6 +227,14 @@ export function create9x9SegmentRect(editorInput) {
     });
 
     g.editor = editorInput;
+
+    g.sendToBack = () => {
+        for (let i = g._objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
+            g._objects[i].sendToBack();
+        }
+        g.editor.canvas.renderAll();
+    }
+
     g.deleteMe = () => {
         for (let i = g._objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
 
