@@ -1,4 +1,5 @@
-import './App.css';
+import './styles/App.css';
+import './styles/styles.css';
 import './data/fonts.css';
 import './data/segmentedRect';
 import { useKeyPress } from './useKeyPress';

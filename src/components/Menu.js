@@ -11,7 +11,7 @@ export const Menu = (props) => {
     const parts = props.partData;
     //generate a list of all the available parts 
     return (
-        <div>
+        <div className='menu'>
             {props.parts.map(value => {
                 return(
                     <PartButton key={value.name} editor={props.editor} part={value} sockets={props.sockets}/>

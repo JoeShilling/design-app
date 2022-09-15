@@ -143,7 +143,7 @@ export const Options = (props) => {
             };
             
             return (
-                <div>
+                <div className='options'>
                    
                    <button onClick={() => deleteObject()}>Delete</button><br></br>
                     {props.parts[i].options.map(value => {
