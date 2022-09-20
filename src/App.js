@@ -34,8 +34,10 @@ const App = () =>  {
     useKeyPress(['z'], undo);
 
     return(
-        <div>
-            <h1>Design App testing</h1>
+        <div className={'app'}>
+            <div className={'title'}>
+                <h1>Design App testing</h1>
+            </div>
             <Toolbar editor={editor} partData={partData}></Toolbar>
             <div  className={'wrapper'}>
                 <Menu className={'one'} editor={editor} parts={partData.parts} sockets={partData.sockets}/>

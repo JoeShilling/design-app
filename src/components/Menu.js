@@ -11,11 +11,12 @@ export const Menu = (props) => {
     const parts = props.partData;
     //generate a list of all the available parts 
     return (
-        <div className='menu'>
-            {props.parts.map(value => {
+        <div className='menu sidebar'>
+            {props.parts.map((value, index) => {
                 return(
                     <PartButton key={value.name} editor={props.editor} part={value} sockets={props.sockets}/>
                 );
+
             })}
         </div>
     );
@@ -140,9 +141,9 @@ const PartButton = (props) => {
 
         return(object);
     }
-    
+
     return (
-        <div>
+        <div className='menuButton'>
             <button onClick={() => addPart()}>{props.part.name}</button>
         </div>
     );

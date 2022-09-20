@@ -1,7 +1,46 @@
+button {
+  background-color: #545454;
+  border: none;
+  padding: 14px 28px;
+  margin: 3px;
+  cursor: pointer;
+  color: #dfdfdf;
+  border-radius: 2px;
+}
+
+button:active {
+  background-color: #898989;
+}
+
+.menuButton {
+  display: inline-flex;
+  width: 50%;
+}
+
 .menu {
-  background: rgb(114, 106, 122);
+  background: #3c3c3c;
+  padding: 0.8ex;
+}
+.menu button {
+  width: 100%;
 }
 
 .options {
-  background: rgb(114, 106, 122);
+  background: #3c3c3c;
+}
+
+.toolbar {
+  background: #3c3c3c;
+  margin-bottom: 10px;
+  padding: 0.8ex;
+}
+
+.app {
+  background: #282828;
+}
+
+.title h1 {
+  margin-top: 0;
+  padding: 0.8ex;
+  color: #ffffff;
 }/*# sourceMappingURL=styles.css.map */

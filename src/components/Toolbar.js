@@ -99,7 +99,7 @@ export const Toolbar = (props) => {
 
 
     return (
-        <div>
+        <div className='toolbar'>
             <button onClick={()=>saveSVG()}>Save as SVG</button>
             <button onClick={()=>savePNG()}>Save as PNG</button>
             <button onClick={()=>toggleGuides()}>Toggle Guides</button>
