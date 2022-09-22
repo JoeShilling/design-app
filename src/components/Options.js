@@ -150,7 +150,7 @@ export const Options = (props) => {
                         switch(value.name) { //first check for any options that need specific functions, atm that just sockets
                             case 'socket':
                                 clearGuides();
-                                return(<div key="socket">
+                                return(<div key="socket" className='option'>
                                     <label htmlFor="socket">Socket: </label>
                                     <select name="socket" id="socket" onChange={changeSocketWrapper}  defaultValue={objects[0].socket}>
                                         {Object.keys(findPosition(value.values, sockets)).map(socket => {
@@ -169,6 +169,8 @@ export const Options = (props) => {
 
                             case 'grid': //used for the 9x9 grid shapes
                                 return(
+                                    <div key='gridDiv' className='option'>
+                                    <label htmlFor='gridOfChecks'>Segment Enable/Disable: </label>
                                     <form className="gridOfChecks" key='gridOfChecks'>
                                         {gridArray.map((grid, index) => {
                                             if (grid) {
@@ -179,6 +181,7 @@ export const Options = (props) => {
                                             }
                                         })}
                                     </form>
+                                    </div>
 
                                 );    
                                 break;
@@ -186,18 +189,18 @@ export const Options = (props) => {
                             default:
                                 switch (value.type) { //then sort the others by type of options
                                     case 'slider':
-                                        return(<div key={value.name}>
+                                        return(<div key={value.name} className='option'>
                                             <label htmlFor={value.name}>{value.name}: </label>
                                             <input id={value.name} type='range' min={value.min} max={value.max} defaultValue={objects[0].get(value.name)} onChange={changeGeneric}/>
                                         </div>)
                                         break;
                                     case 'textArea':
-                                        return(<div key={value.name}>
+                                        return(<div key={value.name} className='option'>
                                             <label htmlFor={value.name}>{value.name}: </label>
                                             <textarea id={value.name} name={value.name} rows="4" cols="50" onChange={changeText} defaultValue={objects[0].get('text')}></textarea>
                                         </div>)
                                     case 'dropDown':
-                                        return(<div key={value.name}>
+                                        return(<div key={value.name} className='option'>
                                             <label htmlFor={value.name}>{value.name}: </label>
                                             <select name={value.name} id={value.name} onChange={changeGeneric} defaultValue={objects[0].get('fill')}>
                                                 {value.values.map(option => {
@@ -209,7 +212,8 @@ export const Options = (props) => {
                                         </div>)
 
                                     case 'colour':
-                                        return(<div key={value.name}>
+                                        return(<div key={value.name} className='option'>
+                                            <label htmlFor='value.name'>{value.name}:</label>
                                             <CirclePicker name={value.name} id={value.name} onChangeComplete={(colour, event) =>{changeColor(colour,value.name)}} colors={value.colours} ></CirclePicker>
                                         </div>)
                                 }
