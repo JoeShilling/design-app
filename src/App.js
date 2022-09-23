@@ -17,11 +17,27 @@ const App = () =>  {
     editor?.canvas.setBackgroundColor(partData.background);
     editor?.canvas.setHeight(partData.height);
     editor?.canvas.setWidth(partData.width);
+
+    // const updateOptions = () => {
+    //     console.log('selection updated');
+    //     editor.canvas.updateOptions = true;
+    // }
+
+    // editor?.canvas.on(
+    //     "selection:updated", updateOptions,
+    //     "selection:created", updateOptions
+    // )
+
+
+
+
     editor?.canvas.renderAll();
     if (editor) { //stops group selections as they caused visual glitches with all the custom group objects
         editor.canvas.selection=false;
         editor.canvas.preserveObjectStacking=true;
     };
+
+
 
     //keyboard shortcuts
     const undo = (event) => {

@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useCallback } from 'react';
 import { createSocketGuides } from '../socketGuides';
 import { CirclePicker } from 'react-color';
 
@@ -10,8 +10,11 @@ export const Options = (props) => {
     const sockets = props.sockets;
 
     const [gridArray, setGridArray] = useState([]);
-    
+    // const [objects, setObjects] = useState(props.objects);
+
     // const[objects, setObjects] = useState(props.objects);
+
+
     const deleteObject = () => {
         let ob = editor.canvas.getActiveObject();
 
@@ -114,6 +117,9 @@ export const Options = (props) => {
         objects[0]._objects[square].set('lines', objects[0]._objects[square].get('lines'));
     };
 
+
+
+
     if (objects.length == 1 ) { //if only one object is selected
         let i =0; //define it out of the loop so we can access it later
         for (i; i < props.parts.length; i++) { //lets us find the options for the selected part type
@@ -125,6 +131,21 @@ export const Options = (props) => {
 
 
         if (i != props.parts.length) { //if this is false it means the selected object isnt in the parts list.
+
+            if (document.getElementById("optionsSidebar")) { //is the options bar already there?
+                props.parts[i].options.map(option => {
+                    try {
+                        document.getElementById(option.name).value = objects[0].get(option.name); //update the option values to match the actual selection
+                    } catch (e) { //mismatches will cause typeErrors but we can ignore those (i think)
+                        if (e.name != "TypeError") {
+                            throw e;
+                        }
+                    }
+                        
+                });
+            }
+
+
 
             if (objects[0].partName == '9x9 SegmentGroup') {
                 let state = [];
@@ -143,7 +164,7 @@ export const Options = (props) => {
             };
             
             return (
-                <div className='options sidebar'>
+                <div className='options sidebar' id="optionsSidebar">
                    
                    <button onClick={() => deleteObject()}>Delete</button><br></br>
                     {props.parts[i].options.map(value => {

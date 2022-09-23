@@ -26,7 +26,7 @@ label {
   gap: 10px;
   grid-auto-rows: minmax(100px, auto); */
 }
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .wrapper {
     flex-direction: column;
   }
@@ -34,18 +34,24 @@ label {
 
 .one {
   width: auto;
-  max-width: 30%;
   /* grid-column: 1;
   grid-row: 1; */
 }
+@media (max-width: 1000px) {
+  .one {
+    max-width: none;
+  }
+}
 
 .two {
+  align-content: center;
   /* grid-column: 2;
   grid-row: 1; */
 }
 
 .three {
   width: auto;
+  min-width: 300px;
   /* grid-column: 3;
   grid-row: 1; */
 }
@@ -57,9 +63,12 @@ label {
 .menuButton {
   display: inline-flex;
   width: 50%;
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
   overflow-x: hidden;
 }
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .menuButton {
     display: block;
     width: 100%;
@@ -68,9 +77,15 @@ label {
 
 .menu {
   background: #3c3c3c;
+  width: 400px;
 }
 .menu button {
   width: 100%;
+}
+@media (max-width: 1000px) {
+  .menu {
+    width: auto;
+  }
 }
 
 .options {
@@ -90,6 +105,7 @@ label {
 
 .app {
   background: #282828;
+  min-width: 100%;
 }
 
 .title h1 {
