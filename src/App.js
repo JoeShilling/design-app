@@ -52,7 +52,7 @@ const App = () =>  {
     return(
         <div className={'app'}>
             <div className={'title'}>
-                <h1>Design App testing</h1>
+                <h1>Institute Design</h1>
             </div>
             <Toolbar editor={editor} partData={partData}></Toolbar>
             <div  className={'wrapper'}>

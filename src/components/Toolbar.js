@@ -103,7 +103,7 @@ export const Toolbar = (props) => {
             <button onClick={()=>saveSVG()}>Save as SVG</button>
             <button onClick={()=>savePNG()}>Save as PNG</button>
             <button onClick={()=>toggleGuides()}>Toggle Guides</button>
-            <button onClick={()=>testSomeFunction()}>Test Function</button>
+            {/* <button onClick={()=>testSomeFunction()}>Test Function</button> */}
         </div>
     );
 }
