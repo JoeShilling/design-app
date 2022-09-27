@@ -20,6 +20,8 @@ export function createSegmentRect(editorInput) {
         lines:6,
         lineStrokeWidth:5,
         editor: editorInput,
+        centeredRotation:true,
+        angleValue:0,
     });
 
     Object.defineProperty(object, 'lineStrokeWidth', { //wrapper setter that ensures the lines are updated after the change
@@ -69,6 +71,30 @@ export function createSegmentRect(editorInput) {
 
     // });
 
+    Object.defineProperty(object, 'fill', {
+        set (colour) {
+            this.set('stroke', colour);
+            this.set('lines', this.get('lines'));
+        },
+        get () {
+            return (object.objects[0].stroke);
+        }
+    });
+
+    Object.defineProperty(object, 'angle', {
+        set(angle) {
+            // if (this.centeredRotation == true) {
+            //     this.setObjectProperty("centeredRotation", true);
+                
+            // }
+            this.set('angleValue', parseInt(angle))
+            this.set('lines', this.get('lines'));
+        },
+        get () {
+            return (this.get('angleValue'));
+        }
+    });
+
     Object.defineProperty(object, 'lines', { //essentially a render function for the lines?
         set (number) {
             number++;
@@ -90,6 +116,8 @@ export function createSegmentRect(editorInput) {
                     stroke: this.stroke,
                     strokeWidth: this.lineStrokeWidth,
                     opacity: this.lineOpacity,
+                    centeredRotation:this.centeredRotation,
+                    angle:this.angleValue,
                     selectable:false,
                     evented:false,
                     type:"line"
@@ -126,6 +154,9 @@ export function createSegmentRect(editorInput) {
     //         return(this.lineOpacity);
     //     }
     // });
+
+
+
 
     object.sendToBack = () => {
         for (let i = object.objects.length - 1; 0 <= i; i--){ //iterate backwards to avoid indexing errors while removing elements
