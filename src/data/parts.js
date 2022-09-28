@@ -107,13 +107,13 @@ export const partData = {
                 socket:"displayA",
                 fill:"white",
                 width:766,
-                height:766,
+                height:772,
                 strokeWidth:0,
             },
             options:[
                 {name:"fill",
                 type:"colour",
-                colours:["#FFFFFF","#5893AB", "#DDA0A6", "#FDB629", "#B0B0A9", "#FF471C", "#75BAB5", "#005E82ß"],
+                colours:["#FFFFFF","#5893AB", "#DDA0A6", "#FDB629", "#B0B0A9", "#FF471C", "#75BAB5", "#005E82"],
                 }
             ]
         },
@@ -158,14 +158,15 @@ export const partData = {
                 type:"colour",
                 colours:["#FFFFFF","#5893AB", "#DDA0A6", "#FDB629", "#B0B0A9", "#FF471C", "#75BAB5", "#005E82ß"],
                 },
-                {name:"angle",
-                type:"dropDown",
-                values:[
-                    {name:"0",value:0},
-                    {name:"90",value:90},
-                    {name:"180",value:180},
-                    {name:"270",value:270},
-                ]
+                {name:"lineAngle",
+                    type:'slider',
+                        min:0,
+                        max:360,
+                },
+                {name:"lineOpacity",
+                    type:'slider',
+                        min:0,
+                        max:100,
                 }
             ],
         },
@@ -235,6 +236,16 @@ export const partData = {
                     type:"colour",
                     colours:["#FFFFFF","#5893AB", "#DDA0A6", "#FDB629", "#B0B0A9", "#FF471C", "#75BAB5", "#005E82ß"],
 
+                },
+                {name:"lineAngle",
+                    type:'slider',
+                        min:0,
+                        max:360,
+                },
+                {name:"lineOpacity",
+                    type:'slider',
+                        min:0,
+                        max:100,
                 }
             ],
         },

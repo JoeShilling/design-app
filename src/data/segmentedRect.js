@@ -81,12 +81,8 @@ export function createSegmentRect(editorInput) {
         }
     });
 
-    Object.defineProperty(object, 'angle', {
+    Object.defineProperty(object, 'lineAngle', {
         set(angle) {
-            // if (this.centeredRotation == true) {
-            //     this.setObjectProperty("centeredRotation", true);
-                
-            // }
             this.set('angleValue', parseInt(angle))
             this.set('lines', this.get('lines'));
         },
@@ -94,6 +90,16 @@ export function createSegmentRect(editorInput) {
             return (this.get('angleValue'));
         }
     });
+
+    // Object.defineProperty(object, 'lineOpacity', {
+    //     set(angle) {
+    //         this.set('angleValue', parseInt(angle))
+    //         this.set('lines', this.get('lines'));
+    //     },
+    //     get () {
+    //         return (this.get('angleValue'));
+    //     }
+    // });
 
     Object.defineProperty(object, 'lines', { //essentially a render function for the lines?
         set (number) {
@@ -112,12 +118,37 @@ export function createSegmentRect(editorInput) {
                 y = this.top;
 
             for (let i = 1; i < number; i++) { //add new lines back in
-                this.objects.push(new fabric.Line([x+(s*i)- (this.lineStrokeWidth/2), y, x+(s*i) - (this.lineStrokeWidth/2), y+h], {
+
+                let p1x = x+(s*i)- (this.lineStrokeWidth/2);
+                let p1y = y;
+                let p2x = x+(s*i) - (this.lineStrokeWidth/2);
+                let p2y = y+h;
+
+                let midpointx = this.left + this.width/2;
+                let midpointy = this.top + this.height/2;
+
+                let sin = Math.sin(this.lineAngle * (Math.PI/180));
+                let cos = Math.cos(this.lineAngle * (Math.PI/180));
+
+                p1x -= midpointx;
+                p1y -= midpointy;
+                p2x -= midpointx;
+                p2y -= midpointy;
+
+                let newP1X = p1x * cos - p1y * sin;
+                let newP1Y = p1x * sin + p1y * cos;
+                let newP2X = p2x * cos - p2y * sin;
+                let newP2Y = p2x * sin + p2y * cos;
+
+                newP1X += midpointx;
+                newP1Y += midpointy;
+                newP2X += midpointx;
+                newP2Y += midpointy;
+
+                this.objects.push(new fabric.Line([newP1X, newP1Y, newP2X, newP2Y], {
                     stroke: this.stroke,
                     strokeWidth: this.lineStrokeWidth,
                     opacity: this.lineOpacity,
-                    centeredRotation:this.centeredRotation,
-                    angle:this.angleValue,
                     selectable:false,
                     evented:false,
                     type:"line"
@@ -254,6 +285,16 @@ export function create9x9SegmentRect(editorInput) {
         } , 
         get () {
             return('hello');
+        }
+    });
+
+    Object.defineProperty(g, 'lineAngle', {
+        set (angle) {
+            this.setObjectProperty('lineAngle', angle);
+            this.set('lines', this.lines)
+        } , 
+        get () {
+            return(this.getObjects()[0].lineAngle);
         }
     });
 
