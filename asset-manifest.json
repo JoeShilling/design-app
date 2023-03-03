@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/design-app/static/css/main.40da75e1.css",
+    "main.css": "/design-app/static/css/main.e5936d19.css",
     "main.js": "/design-app/static/js/main.5b3f0dff.js",
     "static/media/spiral.png": "/design-app/static/media/spiral.b70be850bfac1ce02421.png",
     "static/media/institute.svg": "/design-app/static/media/institute.4a1396948066b2c74c27.svg",
     "static/media/Institute-Bold.ttf": "/design-app/static/media/Institute-Bold.a9675f8423e4d8b5daf7.ttf",
     "static/media/Institute-Light.ttf": "/design-app/static/media/Institute-Light.64bf6f6c69bcc752c38e.ttf",
     "index.html": "/design-app/index.html",
-    "main.40da75e1.css.map": "/design-app/static/css/main.40da75e1.css.map",
+    "main.e5936d19.css.map": "/design-app/static/css/main.e5936d19.css.map",
     "main.5b3f0dff.js.map": "/design-app/static/js/main.5b3f0dff.js.map"
   },
   "entrypoints": [
-    "static/css/main.40da75e1.css",
+    "static/css/main.e5936d19.css",
     "static/js/main.5b3f0dff.js"
   ]
 }
